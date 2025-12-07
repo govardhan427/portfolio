@@ -5,7 +5,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField(help_text="Markdown Content")
-    cover_image = models.ImageField(upload_to='media_uploads/', blank=True, null=True)
+    cover_image = models.ImageField(upload_to='blog_files/', blank=True, null=True)
     # Metadata
     tags = models.CharField(max_length=200, help_text="Comma separated (e.g. Python, DevOps)")
     is_published = models.BooleanField(default=True)
