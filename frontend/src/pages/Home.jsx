@@ -154,7 +154,7 @@ const Home = () => {
                                 </a>
                             )}
                             {cert.image && (
-                                <a href={cert.image} target="_blank" rel="noreferrer" className="cert-btn-small image">
+                                <a href={cert.image_url} target="_blank" rel="noreferrer" className="cert-btn-small image">
                                     View <ImageIcon size={12} />
                                 </a>
                             )}

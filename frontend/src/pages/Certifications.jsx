@@ -60,7 +60,7 @@ const Certifications = () => {
                         )}
                         
                         {cert.image && (
-                            <a href={cert.image} target="_blank" rel="noreferrer" className="cert-verify-btn image-btn">
+                            <a href={cert.image_url} target="_blank" rel="noreferrer" className="cert-verify-btn image-btn">
                                 View Image <ImageIcon size={14} />
                             </a>
                         )}

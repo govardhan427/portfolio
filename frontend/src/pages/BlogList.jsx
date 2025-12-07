@@ -37,8 +37,8 @@ const BlogList = () => {
             <Link to={`/blog/${post.slug}`} key={post.id} className="blog-card animate-fade-in">
               {/* Cover Image */}
               <div className="blog-image-wrapper">
-                 {post.cover_image ? (
-                    <img src={post.cover_image} alt={post.title} />
+                 {post.cover_image_url ? (
+                    <img src={post.cover_image_url} alt={post.title} />
                  ) : (
                     <div className="blog-placeholder-img"></div>
                  )}
