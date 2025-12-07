@@ -12,12 +12,6 @@ class BlogPost(models.Model):
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     read_time = models.IntegerField(default=5, help_text="Estimated minutes")
-    @property
-    def cover_image_url(self):
-        if not self.cover_image:
-            return None
-        CLOUD_NAME = 'dqw1t0dul'
-        return f'https://res.cloudinary.com/{CLOUD_NAME}/image/upload/{self.cover_image.name}'
 
     def save(self, *args, **kwargs):
         if not self.slug:
