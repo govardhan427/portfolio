@@ -4,6 +4,7 @@ const api = axios.create({
     // VITE_API_URL should be 'http://127.0.0.1:8000/api/v1' in your .env
     baseURL: import.meta.env.VITE_API_URL,
     headers: { 'Content-Type': 'application/json' },
+    withCredentials: true
 });
 
 // Auto-attach JWT token if it exists

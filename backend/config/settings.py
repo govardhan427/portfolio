@@ -23,7 +23,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.getenv('RENDER_EXTERNAL_HOSTNAME')
 
 # 2. Enforce HTTPS (ONLY active in production when DEBUG=False)
 SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -196,6 +198,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # Disable this for security, forcing it to respect the list above
 CORS_ALLOW_ALL_ORIGINS = False 
+CORS_ALLOW_CREDENTIALS = True
 
 # ==============================================================================
 # 12. DEFAULT AUTO FIELD
