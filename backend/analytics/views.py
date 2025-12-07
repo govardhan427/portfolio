@@ -7,12 +7,13 @@ from django.db.models import Count
 from .models import Visitor, PageView
 from .serializers import VisitorSerializer
 from .utils import get_client_ip
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 # ==============================================================================
 # 1. PUBLIC TRACKING ENDPOINT (React calls this on route change)
 # ==============================================================================
 class TrackPageView(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         # 1. Identify the Visitor (by IP)
@@ -42,7 +43,7 @@ class TrackPageView(APIView):
 # ==============================================================================
 class AnalyticsDashboardView(APIView):
     # In production, change AllowAny to IsAdminUser
-    permission_classes = [permissions.AllowAny] 
+    permission_classes = [IsAdminUser] 
 
     def get(self, request):
         # Time ranges
@@ -91,4 +92,4 @@ class VisitorListView(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Visitor.objects.all().order_by('-last_visit')
     serializer_class = VisitorSerializer
-    permission_classes = [permissions.AllowAny] # Lock this down in prod!
+    permission_classes = [permissions.IsAdminUser] # Lock this down in prod!
