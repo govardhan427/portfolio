@@ -1,4 +1,5 @@
 import os
+import json # New import for logging
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
@@ -14,22 +15,21 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==============================================================================
-# 1. CORE SECURITY SETTINGS (LOCAL DEV MODE)
+# 1. CORE SECURITY SETTINGS
 # ==============================================================================
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
-DEBUG = os.getenv('DEBUG') == 'True'
-# WhiteNoise handles static files on production
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# DEBUG must be set explicitly for production safety
+DEBUG = os.getenv("DEBUG", "False") == "True" 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.getenv('RENDER_EXTERNAL_HOSTNAME')]
 
-# 2. Enforce HTTPS
+# 2. Enforce HTTPS (ONLY active in production when DEBUG=False)
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-# Only allow connections from Render/your domain
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
 # ==============================================================================
 # 2. INSTALLED APPS
 # ==============================================================================
@@ -42,27 +42,28 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third Party Apps
-    'rest_framework',          # The API Engine
-    'corsheaders',             # Allows React to talk to Django
-    'cloudinary_storage',      # (Prepared for Production)
-    'cloudinary',              # (Prepared for Production)
+    'rest_framework', 
+    'corsheaders', 
+    'cloudinary_storage', 
+    'cloudinary', 
 
     # Masterpiece Custom Apps
-    'core',                    # Projects, Profile, Skills
-    'analytics',               # The "Spy" Visitor Tracking
-    'vault',                   # File Storage
-    'blog',                    # CMS
-    'features',                # AI, Steganography, etc.
+    'core', 
+    'analytics', 
+    'vault', 
+    'blog', 
+    'features', 
 ]
 
 # ==============================================================================
 # 3. MIDDLEWARE
 # ==============================================================================
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-     'whitenoise.middleware.WhiteNoiseMiddleware', # MUST be at the top
+    # CORS must be first for preflight requests
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # For serving static files
+    # WhiteNoise must be second for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,7 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
-    # Custom "Spy" Middleware (We will uncomment this when we write the file)
+    # Custom "Spy" Middleware (Must be AFTER Session/Auth)
     'analytics.middleware.VisitorTrackingMiddleware',
 ]
 
@@ -97,16 +98,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ==============================================================================
 # 4. DATABASE (SQLite for Local, Postgres for Prod)
 # ==============================================================================
-
 DB_URL = os.getenv('DATABASE_URL')
 
 if DB_URL:
-    # Use Neon PostgreSQL (For Render deployment and live testing)
     DATABASES = {
         'default': dj_database_url.config(default=DB_URL)
     }
 else:
-    # Use Local SQLite (For local data dumping when running without ENV)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -141,83 +139,78 @@ USE_I18N = True
 USE_TZ = True
 
 # ==============================================================================
-# 7. STATIC & MEDIA FILES (Local Setup)
+# 7. STATIC & MEDIA FILES
 # ==============================================================================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media (Uploaded User Files)
-MEDIA_ROOT = BASE_DIR / 'media'
+# Default to Cloudinary for media storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'
 
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-# CACHING CONFIGURATION (Add this block)
+# ==============================================================================
+# 8. CACHING CONFIGURATION
+# ==============================================================================
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache_data'), # Directory to store cache files
-        'TIMEOUT': 300,  # Cache timeout in seconds (5 minutes)
+        'LOCATION': os.path.join(BASE_DIR, 'cache_data'),
+        'TIMEOUT': 300,
         'OPTIONS': {
-            'MAX_ENTRIES': 1000 # Max number of cache entries
+            'MAX_ENTRIES': 1000
         }
     }
 }
-
-# The cache key prefix helps isolate your project's cache data
 CACHE_MIDDLEWARE_KEY_PREFIX = 'portfolio_cache'
-
-# We'll apply caching to the Home View specifically, which is most beneficial.
-# Cache will last 5 minutes (300 seconds)
 HOME_CACHE_TIMEOUT = 300
 
 # ==============================================================================
-# 8. REST FRAMEWORK CONFIG
+# 9. REST FRAMEWORK CONFIG
 # ==============================================================================
 REST_FRAMEWORK = {
-    # Use JSON by default
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # For now, allow anyone to read. We lock it down later.
     'DEFAULT_PERMISSION_CLASSES': [
+        # Must be AllowAny here, then restricted per-view/app (as we discussed)
         'rest_framework.permissions.AllowAny', 
     ],
 }
 
-from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1), # Long time for dev
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
-# ==============================================================================
-# 9. CORS CONFIGURATION (Crucial for React)
-# ==============================================================================
-# For local dev, we allow all origins. 
-# In production, we will restrict this to 'https://your-vercel-app.vercel.app'
-CORS_ALLOW_ALL_ORIGINS = False
 
-# Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ==============================================================================
-# 10. CLOUDINARY CONFIGURATION (The Vault Storage)
+# 10. CLOUDINARY CONFIGURATION
 # ==============================================================================
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "dqw1t0dul",
-    'API_KEY': "467449637461852",
-    'API_SECRET': "nd2vS0yVdxIuRZpuIHH0O0n8Q1E"
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
 }
 
-# Tell Django to use Cloudinary for uploaded media (files/images)
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
+# ==============================================================================
+# 11. CORS CONFIGURATION (THE FIX)
+# ==============================================================================
+# Read the comma-separated string from the environment
+CORS_ORIGINS_STRING = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173')
+
+# Parse the string into a Python list
+# This is the fix for the production environment variable not being read as a list.
+CORS_ALLOWED_ORIGINS = [
+    origin.strip() for origin in CORS_ORIGINS_STRING.split(',')
+]
+
+# Disable this for security, forcing it to respect the list above
+CORS_ALLOW_ALL_ORIGINS = False 
+
+# ==============================================================================
+# 12. DEFAULT AUTO FIELD
+# ==============================================================================
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
