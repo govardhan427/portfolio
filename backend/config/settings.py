@@ -97,11 +97,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ==============================================================================
 # 4. DATABASE (SQLite for Local, Postgres for Prod)
 # ==============================================================================
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
-}
+
+DB_URL = os.getenv('DATABASE_URL')
+
+if DB_URL:
+    # Use Neon PostgreSQL (For Render deployment and live testing)
+    DATABASES = {
+        'default': dj_database_url.config(default=DB_URL)
+    }
+else:
+    # Use Local SQLite (For local data dumping when running without ENV)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # ==============================================================================
 # 5. PASSWORD VALIDATION
