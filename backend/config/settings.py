@@ -139,7 +139,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-#MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
+MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
 # ==============================================================================
 # 8. CACHING CONFIGURATION
 # ==============================================================================
