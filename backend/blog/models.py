@@ -5,8 +5,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField(help_text="Markdown Content")
-    cover_image = models.ImageField(upload_to='blog_files/', blank=True, null=True)
-    # Metadata
+    cover_image_url = models.URLField(max_length=500, blank=True, null=True,help_text="Paste the absolute Cloudinary/Image URL here.")    # Metadata
     tags = models.CharField(max_length=200, help_text="Comma separated (e.g. Python, DevOps)")
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
