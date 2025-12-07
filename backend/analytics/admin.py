@@ -9,8 +9,33 @@ class PageViewInline(admin.TabularInline):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-    list_display = ('remote_ip', 'device_type', 'first_visit', 'last_visit_formatted')
-    readonly_fields = ('id', 'first_visit', 'last_visit') # Keep IP and Location editable for your manual test
+    # CRITICAL FIX 1: Add is_online and session_key for visibility, and use remote_ip.
+    list_display = (
+        'remote_ip', 
+        'session_key', 
+        'is_online', 
+        'device_type', 
+        'first_visit', 
+        'last_visit_formatted'
+    )
+    
+    # CRITICAL FIX 2: Add session_key, remote_ip, and is_online to readonly_fields 
+    # if you want to prevent accidental editing, or keep them visible.
+    # I'll include the essential fields for a complete view:
+    readonly_fields = (
+        'id', 
+        'session_key', 
+        'remote_ip', 
+        'is_online', 
+        'user_agent', 
+        'first_visit', 
+        'last_visit'
+    ) 
+    
+    # Add filtering and searching for better admin experience
+    list_filter = ('is_online', 'device_type', 'first_visit')
+    search_fields = ('remote_ip', 'user_agent', 'session_key')
+    
     inlines = [PageViewInline]
 
     def last_visit_formatted(self, obj):

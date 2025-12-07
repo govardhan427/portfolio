@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Count
-from django.db.models.functions import TruncDate # Needed for PostgreSQL daily aggregation
+from django.db.models.functions import TruncDate 
 from .models import Visitor, PageView
 from .serializers import VisitorSerializer
 from .utils import get_client_ip
@@ -29,23 +29,21 @@ class TrackPageView(APIView):
         ip = get_client_ip(request)
         now = timezone.now()
 
-        # 2. Get or Create Visitor
+        # 2. Get or Create Visitor by Session Key
         visitor, created = Visitor.objects.get_or_create(
             session_key=session_key,
             defaults={
-                "remote_ip": ip,
+                "remote_ip": ip, # Use remote_ip matching models.py
                 "user_agent": request.data.get("user_agent", ""),
                 "is_online": True, 
                 "last_visit": now,
-                # Ensure 'visits' is initialized correctly if it exists in your model
-                # "visits": 1,
+                # "visits": 1, # Keep commented if 'visits' field is not in model
             }
         )
 
         # 3. Rate Limiting Check (Skip expensive update if too soon)
         if not created and visitor.last_visit > now - timedelta(seconds=MIN_UPDATE_INTERVAL):
-            # Log the page view even if the visitor record isn't updated,
-            # but return immediately to save DB write operation on the Visitor table.
+            # Log the page view but skip saving the Visitor record to the database
             path = request.data.get("path", "/")
             PageView.objects.create(
                 visitor=visitor,
@@ -59,7 +57,6 @@ class TrackPageView(APIView):
         
         # New day check: Increment visits
         if not created and visitor.last_visit.date() < now.date():
-            # You need a 'visits' field in models.py for this logic to work
             # visitor.visits += 1 
             # update_fields.append("visits")
             pass
@@ -68,16 +65,21 @@ class TrackPageView(APIView):
         visitor.last_visit = now
         visitor.is_online = True
         
-        # Update user agent only if provided and changed
+        # Update user agent if provided and changed
         ua = request.data.get("user_agent")
         if ua and ua != visitor.user_agent:
             visitor.user_agent = ua
             update_fields.append("user_agent")
         
+        # CRITICAL INTEGRITY FIX: Update remote_ip if it changed during the session
+        if ip and visitor.remote_ip != ip:
+            visitor.remote_ip = ip
+            update_fields.append("remote_ip")
+        
         # Save changes to the Visitor record
         visitor.save(update_fields=update_fields)
 
-        # 5. Log page view (MUST happen after visitor update)
+        # 5. Log page view 
         PageView.objects.create(
             visitor=visitor,
             path=request.data.get("path", "/"),
@@ -95,7 +97,7 @@ class AnalyticsDashboardView(APIView):
     def get(self, request):
         now = timezone.now()
         
-        # 1. CRITICAL FIX: EXPIRE STALE SESSIONS (The 'too many numbers' fix)
+        # 1. CRITICAL FIX: EXPIRE STALE SESSIONS 
         timeout_time = now - timedelta(minutes=ACTIVE_WINDOW_MINUTES)
         
         # Set all records whose last activity was outside the window to offline
@@ -114,7 +116,7 @@ class AnalyticsDashboardView(APIView):
         daily_stats = (
             PageView.objects
             .filter(timestamp__gte=last_7d)
-            .annotate(day=TruncDate("timestamp")) # Use TruncDate for Postgres (Render)
+            .annotate(day=TruncDate("timestamp")) 
             .values("day")
             .annotate(count=Count("id"))
             .order_by("day")

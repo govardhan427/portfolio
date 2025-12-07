@@ -13,6 +13,14 @@ class VisitorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visitor
         fields = [
-            'id', 'ip_address', 'device_type', 'location', 
-            'user_agent', 'first_visit', 'last_visit', 'page_views'
+            'id', 
+            'session_key',    # CRITICAL FIX 1: New field for session-based tracking
+            'remote_ip',      # CRITICAL FIX 2: Corrected IP address field name
+            'is_online',      # CRITICAL FIX 3: New field for online status
+            'device_type', 
+            'location', 
+            'user_agent', 
+            'first_visit', 
+            'last_visit', 
+            'page_views'
         ]

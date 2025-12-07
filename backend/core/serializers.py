@@ -1,7 +1,6 @@
-# backend/core/serializers.py
-
 from rest_framework import serializers
 from .models import Skill, Project, ProjectImage, Certificate, Journey, Achievement
+from django.conf import settings # Needed for generating absolute URLs
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,35 +8,47 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'category', 'proficiency', 'icon_class']
 
 class ProjectImageSerializer(serializers.ModelSerializer):
-    # CRITICAL CHANGE 1: Remove custom ImageField and rely on the model's new URLField name
-    # The field will automatically be serialized as a string URL.
-    
     class Meta:
         model = ProjectImage
         # CRITICAL CHANGE 2: Use the new field name: 'image_url'
         fields = ['id', 'image_url', 'caption', 'is_feature'] 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    # Nested Serializers: Include the full skill and image objects, not just IDs
+    # Nested Serializers
     skills = SkillSerializer(many=True, read_only=True)
     images = ProjectImageSerializer(many=True, read_only=True)
+
+    # CRITICAL FIX 1: Define the og_image_url field as a SerializerMethodField
+    og_image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
         fields = [
             'id', 'title', 'slug', 'tagline', 'description', 
             'skills', 'images', 'demo_link', 'github_link', 
-            'featured_image_url', # CRITICAL CHANGE 3: Include the new featured image URL field
+            'featured_image_url',       # CRITICAL CHANGE 3: New URL field
+            'og_image_url',             # CRITICAL FIX 2: Include the generated image URL
             'featured', 'created_at'
         ]
 
+    # CRITICAL FIX 3: Method to generate the absolute URL for the generated image
+    def get_og_image_url(self, obj):
+        request = self.context.get('request')
+        # Check if the file exists and the request context is available
+        if obj.og_image and request:
+            # Use request.build_absolute_uri to get the full public URL
+            return request.build_absolute_uri(obj.og_image.url)
+        return None
+
+
 class CertificateSerializer(serializers.ModelSerializer):
-    # CRITICAL CHANGE 4: The Certificate model's image field was also renamed to 'image_url'
-    
     class Meta:
         model = Certificate
-        # We assume you want to include all fields, so we rely on the model definition for the name 'image_url'
-        fields = '__all__' 
+        # CRITICAL FIX 4: Explicitly list fields for safety post-migration
+        fields = (
+            'id', 'name', 'issuer', 'date_issued', 
+            'credential_url', 'image_url' # Ensure image_url is the name used
+        ) 
 
 class JourneySerializer(serializers.ModelSerializer):
     class Meta:
