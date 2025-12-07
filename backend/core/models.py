@@ -30,6 +30,8 @@ class Project(models.Model):
     tagline = models.CharField(max_length=200, help_text="Short one-liner description")
     description = models.TextField(help_text="Full details (Markdown supported)")
     
+    # CRITICAL FIX 1: New field for the featured image URL
+    featured_image_url = models.URLField(max_length=500, blank=True, null=True, help_text="Paste the absolute URL for the main featured image.")
     # The "Flex" Relations
     skills = models.ManyToManyField(Skill, related_name='projects')
     
@@ -49,7 +51,10 @@ class Project(models.Model):
 # ==========================================
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/')
+    
+    # CRITICAL FIX 2: Replaced ImageField with URLField
+    image_url = models.URLField(max_length=500, help_text="Paste the absolute URL for this gallery image.")
+    
     caption = models.CharField(max_length=200, blank=True)
     is_feature = models.BooleanField(default=False, help_text="Is this the main cover image?")
 
@@ -64,11 +69,15 @@ class Certificate(models.Model):
     issuer = models.CharField(max_length=100)
     date_issued = models.DateField()
     credential_url = models.URLField(blank=True)
-    image = models.ImageField(upload_to='certs/', blank=True, null=True)
+    
+    # CRITICAL FIX 3: Replaced ImageField with URLField
+    image_url = models.URLField(max_length=500, blank=True, null=True, help_text="Paste the absolute URL for the certificate image.")
 
     def __str__(self):
         return self.name
-# ... existing imports
+        
+# ... Journey and Achievement models are correct and unchanged ...
+
 class Journey(models.Model):
     CATEGORY_CHOICES = [
         ('EDU', 'Education'),
@@ -77,20 +86,21 @@ class Journey(models.Model):
         ('GOAL', 'Future Goal'),
     ]
 
-    title = models.CharField(max_length=100) # e.g., "B.Tech in CSE"
-    subtitle = models.CharField(max_length=100) # e.g., "SRM University"
-    date_range = models.CharField(max_length=50) # e.g., "2020 - 2024"
+    title = models.CharField(max_length=100) 
+    subtitle = models.CharField(max_length=100) 
+    date_range = models.CharField(max_length=50) 
     description = models.TextField(blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='EDU')
     order = models.IntegerField(default=0, help_text="Lowest number appears first")
     
     class Meta:
-        ordering = ['order'] # Sort by the order you define
+        ordering = ['order'] 
 
     def __str__(self):
         return f"{self.date_range} - {self.title}"
+
 class Achievement(models.Model):
-    title = models.CharField(max_length=100) # e.g., "Hackathon Winner"
+    title = models.CharField(max_length=100) 
     description = models.TextField()
     date_earned = models.DateField()
     icon_name = models.CharField(max_length=50, default='Trophy', help_text="Icon name (Trophy, Star, Code, Zap, GitBranch)")
