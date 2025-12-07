@@ -3,20 +3,18 @@
 from rest_framework import viewsets, permissions
 from .models import BlogPost
 from .serializers import BlogPostSerializer
-from rest_framework.permissions import AllowAny, IsAdminUser # Ensure IsAdminUser is imported if needed
+from rest_framework.permissions import AllowAny
 
-class BlogPostViewSet(viewsets.ReadOnlyModelViewSet): # CHANGED to ReadOnlyModelViewSet for security
+class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Provides public read access to published BlogPosts via slug.
-    (Inherits list and retrieve methods only, blocking POST, PUT, DELETE for security)
+    ReadOnlyModelViewSet ensures no public POST/PUT/DELETE access.
     """
-    # Only show published posts to the world
+    # NOTE: This line is correct, but needs the database fields to exist.
     queryset = BlogPost.objects.filter(is_published=True).order_by('-created_at')
+    
     serializer_class = BlogPostSerializer
-    
-    # Allow anyone to read the published posts
     permission_classes = [permissions.AllowAny] 
-    
     lookup_field = 'slug'
     
     # --- CRITICAL FOR IMAGE FIX ---
