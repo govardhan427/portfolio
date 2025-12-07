@@ -1,0 +1,15 @@
+# Django Environment & Security
+.env
+__pycache__/
+*.pyc
+
+# Local Database
+db.sqlite3
+
+# Local File Storage
+/media/
+
+# IDE/OS files
+.vscode/
+.idea/
+*~
