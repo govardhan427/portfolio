@@ -1,5 +1,9 @@
 import requests
-import json # Ensure json is imported for exception handling
+import json
+from django.core.cache import cache
+
+# Define how long to cache the IP lookup result (24 hours = 86400 seconds)
+IP_CACHE_TIMEOUT = 86400
 
 def get_client_ip(request):
     """
@@ -14,62 +18,74 @@ def get_client_ip(request):
     return ip
 
 def get_ip_location(ip):
-    """
-    Fetches location details (City, Lat, Lng) for a given IP.
-    """
-    # 1. Skip local IPs (they don't have locations)
-    if ip == '127.0.0.1' or ip.startswith('192.168.') or ip == 'localhost':
-        return {
-            "city": "Localhost",
-            "country_name": "Local Dev",
-            "lat": 23.5937, # Default Center of India
-            "lng": 78.9629
-        }
-
-    # 2. Define safe fallback data
+    # 3. Define safe fallback data (Used if API fails or rate limits)
     FALLBACK_DATA = {
         "city": "Unknown",
         "country_name": "Unknown",
         "lat": None,
         "lng": None
     }
+    
+    # 1. Skip local IPs and return structured Localhost data
+    if ip == '127.0.0.1' or ip.startswith('192.168.') or ip == 'localhost':
+        return {
+            "city": "Localhost",
+            "country_name": "Local Dev",
+            "lat": 23.5937, 
+            "lng": 78.9629
+        }
 
-    # 3. Call Geo-IP API with robust error handling
+    # 2. Check Cache First (The FIX for rate limiting)
+    cached_data = cache.get(f"ip_location_{ip}")
+    if cached_data:
+        return cached_data # Return cached data immediately
+
+    # 4. Call Geo-IP API with robust error handling
     try:
         response = requests.get(f"https://ipapi.co/{ip}/json/", timeout=5)
         
-        # CRITICAL FIX 1: Check status code before parsing JSON
+        # --- FIX: Handle 429 Rate Limit Explicitly ---
+        if response.status_code == 429: 
+            print("GeoIP Error: Rate limit hit (429). Serving fallback data.")
+            # Cache the fallback data briefly (1 hour) to avoid spamming the API
+            cache.set(f"ip_location_{ip}", FALLBACK_DATA, timeout=3600) 
+            return FALLBACK_DATA
+        
+        # Handle other non-200 errors (e.g., 404, 500)
         if response.status_code != 200:
             print(f"GeoIP Error: Non-200 Status Code ({response.status_code})")
             return FALLBACK_DATA
         
-        # CRITICAL FIX 2: Handle empty response body (the likely cause of "Expecting value")
+        # Attempt to decode JSON
         data = response.json()
         
+        # Handle API's internal error response structure
         if 'error' in data or not data.get('city'):
-            print(f"GeoIP Error: API returned error message or missing data: {data.get('reason', 'N/A')}")
+            print(f"GeoIP Error: API returned error/missing city data: {data.get('reason', 'N/A')}")
             return FALLBACK_DATA
 
-        return {
+        # Construct successful result
+        result = {
             "city": data.get('city'),
             "region": data.get('region'),
-            "country": data.get('country_name'),
+            "country_name": data.get('country_name'),
             "lat": data.get('latitude'),
             "lng": data.get('longitude'),
             "org": data.get('org')
         }
         
-    except json.JSONDecodeError:
-        # Catch the explicit error 'Expecting value: line 1 column 1 (char 0)'
-        print("GeoIP Error: Failed to decode JSON (Likely empty/malformed response body)")
-        return FALLBACK_DATA
+        # 5. Store result in cache before returning
+        cache.set(f"ip_location_{ip}", result, timeout=IP_CACHE_TIMEOUT)
+        return result
         
-    except requests.RequestException as e:
-        # Catch connection errors, timeouts, etc.
+    except json.JSONDecodeError as e: # Catch the specific JSON error
+        print(f"GeoIP Error: Failed to decode JSON (Likely empty/malformed body): {e}")
+        return FALLBACK_DATA # <--- CORRECT RETURN
+        
+    except requests.RequestException as e: # Catch connection errors/timeouts
         print(f"GeoIP Request Error: {e}")
-        return FALLBACK_DATA
+        return FALLBACK_DATA # <--- CORRECT RETURN
         
-    except Exception as e:
-        # Catch any other unexpected error
+    except Exception as e: # Catch any other unexpected error
         print(f"GeoIP Unexpected Error: {e}")
-        return FALLBACK_DATA
+        return FALLBACK_DATA # <--- CORRECT RETURN
