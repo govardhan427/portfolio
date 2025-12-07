@@ -47,11 +47,11 @@ const BlogDetail = () => {
           </div>
         </header>
         
-        {post.cover_image && (
-            <div className="article-cover">
-                <img src={post.cover_image} alt={post.title} />
-            </div>
-        )}
+        {post.cover_image_url && (
+        <div className="article-cover">
+          <img src={post.cover_image_url} alt={post.title} />
+        </div>
+      )}
 
         <div className="article-content">
           <ReactMarkdown>{post.content}</ReactMarkdown>
