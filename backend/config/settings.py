@@ -59,10 +59,8 @@ INSTALLED_APPS = [
 # 3. MIDDLEWARE
 # ==============================================================================
 MIDDLEWARE = [
-    # CORS must be first for preflight requests
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # WhiteNoise must be second for static files
     'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,8 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    # Custom "Spy" Middleware (Must be AFTER Session/Auth)
     'analytics.middleware.VisitorTrackingMiddleware',
 ]
 
