@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     # Third Party Apps
     'rest_framework', 
     'corsheaders', 
-    'cloudinary_storage', 
-    'cloudinary', 
 
     # Masterpiece Custom Apps
     'core.apps.CoreConfig', 

@@ -7,34 +7,35 @@ from .models import Project
 from .og_generator import generate_project_og
 import sys
 import os
-# Import io for the BytesIO object needed for the file buffer
 import io 
 
 @receiver(post_save, sender=Project)
 def generate_og_image(sender, instance, created, update_fields=None, **kwargs):
     # --- CRITICAL FIX 1: Prevent Recursive Loop ---
-    # If the signal was triggered by the save() operation *we* performed on 'og_image', RETURN.
-    # This prevents the save(update_fields=['og_image']) call from triggering itself.
-    if update_fields is not None and ('og_image' in update_fields or 'og_image' not in instance._meta.fields):
+    # If this signal was triggered by the instance.save(update_fields=['og_image']) call, exit immediately.
+    # This prevents the signal from calling itself indefinitely.
+    if update_fields and 'og_image' in update_fields:
         return
 
-    # Only run if the Project has the required data and is not being deleted
+    # Check if the project has the required data (title/tagline) and is not a raw database load.
     if not instance.title or not instance.tagline or kwargs.get('raw'):
         return
 
-    # Check if the image already exists (and is correctly named)
+    # Check 2: Only proceed if the file field is currently empty OR the slug changed 
+    # (to avoid regenerating on every trivial save).
     og_filename = f'{instance.slug}_og.png'
     target_path = os.path.join('project_og', og_filename)
-
-    # Check 2: Only proceed if the file field is currently empty OR the slug changed.
-    if instance.og_image.name == target_path and not created:
-         # File already exists at the expected path, no need to regenerate/re-upload unless logic requires it.
+    
+    # Check if a file already exists at the expected path AND the object wasn't just created.
+    # We assume if the name matches and it's not a new object, the image is fine.
+    if not created and instance.og_image.name == target_path:
          return
          
     # 1. Generate the image buffer (io.BytesIO object)
     try:
         image_buffer = generate_project_og(instance.title, instance.tagline)
     except Exception as e:
+        # Catch exceptions related to PIL/font issues (common in cloud environments)
         print(f"Error generating OG image: {e}")
         return
     
@@ -49,13 +50,13 @@ def generate_og_image(sender, instance, created, update_fields=None, **kwargs):
     )
 
     # 3. Save the generated file
-    # We use save=False initially, then update_fields=['og_image'] to commit the change.
+    # Sets the path on the instance without hitting the database yet.
     instance.og_image.save(og_filename, django_file, save=False)
     
-    # Save the instance again to commit the file path. This is safe due to FIX 1.
+    # Save the instance again to commit the file path to the database.
     try:
-        # CRITICAL FIX 2: Use update_fields=['og_image'] to ensure this save does not trigger other signals
-        # and most importantly, is caught by FIX 1, preventing recursion.
+        # CRITICAL FIX 2: update_fields=['og_image'] triggers the signal again, 
+        # but FIX 1 catches and stops it.
         instance.save(update_fields=['og_image'])
     except Exception as e:
         print(f"Error saving OG image field: {e}")
