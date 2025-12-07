@@ -153,7 +153,7 @@ const Home = () => {
                                     Verify <ExternalLink size={12} />
                                 </a>
                             )}
-                            {cert.image && (
+                            {cert.image_url && (
                                 <a href={cert.image_url} target="_blank" rel="noreferrer" className="cert-btn-small image">
                                     View <ImageIcon size={12} />
                                 </a>
