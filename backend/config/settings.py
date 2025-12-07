@@ -1,5 +1,5 @@
 import os
-import json # New import for logging
+import json 
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
@@ -18,7 +18,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 1. CORE SECURITY SETTINGS
 # ==============================================================================
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
-# DEBUG must be set explicitly for production safety
 DEBUG = os.getenv("DEBUG", "False") == "True" 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.getenv('RENDER_EXTERNAL_HOSTNAME')]
 
@@ -135,14 +134,14 @@ USE_I18N = True
 USE_TZ = True
 
 # ==============================================================================
-# 7. STATIC & MEDIA FILES
+# 7. STATIC & MEDIA FILES (THE FIX IS HERE)
 # ==============================================================================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Default to Cloudinary for media storage
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
+
 
 # ==============================================================================
 # 8. CACHING CONFIGURATION
@@ -171,7 +170,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        # Must be AllowAny here, then restricted per-view/app (as we discussed)
         'rest_framework.permissions.AllowAny', 
     ],
 }
@@ -198,7 +196,6 @@ CLOUDINARY_STORAGE = {
 CORS_ORIGINS_STRING = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173')
 
 # Parse the string into a Python list
-# This is the fix for the production environment variable not being read as a list.
 CORS_ALLOWED_ORIGINS = [
     origin.strip() for origin in CORS_ORIGINS_STRING.split(',')
 ]
