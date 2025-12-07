@@ -183,12 +183,18 @@ SIMPLE_JWT = {
 # ==============================================================================
 # 10. CLOUDINARY CONFIGURATION
 # ==============================================================================
+CLOUDINARY = {
+    'cloud_name': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'api_key': os.environ.get('CLOUDINARY_API_KEY'),
+    'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
+}
+
 CLOUDINARY_STORAGE = {
+    # Keep this section, but it mostly relies on the CLOUDINARY dictionary above
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
 }
-
 # ==============================================================================
 # 11. CORS CONFIGURATION (THE FIX)
 # ==============================================================================
