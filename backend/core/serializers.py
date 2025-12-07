@@ -7,6 +7,7 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'category', 'proficiency', 'icon_class']
 
 class ProjectImageSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(read_only=True)
     class Meta:
         model = ProjectImage
         fields = ['id', 'image', 'caption', 'is_feature']
