@@ -138,11 +138,8 @@ USE_TZ = True
 # ==============================================================================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
-
-
 # ==============================================================================
 # 8. CACHING CONFIGURATION
 # ==============================================================================
@@ -183,14 +180,8 @@ SIMPLE_JWT = {
 # ==============================================================================
 # 10. CLOUDINARY CONFIGURATION
 # ==============================================================================
-CLOUDINARY = {
-    'cloud_name': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'api_key': os.environ.get('CLOUDINARY_API_KEY'),
-    'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
-}
-
 CLOUDINARY_STORAGE = {
-    # Keep this section, but it mostly relies on the CLOUDINARY dictionary above
+    # This section is necessary and uses the standard environment variable lookup.
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
