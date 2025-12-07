@@ -5,27 +5,26 @@ import io
 import os
 from datetime import datetime
 
-# --- CRITICAL FONT FIX ---
-# 1. Define the relative path to the bundled font file (Recommended)
+# ... (Font setup remains the same) ...
 # ASSUMPTION: Font is placed at backend/core/fonts/default.ttf
-FONT_NAME = "arial.ttf" # Fallback system name
+FONT_NAME = "arial.ttf" 
 FONT_DIR = os.path.join(os.path.dirname(__file__), 'fonts')
 BUNDLED_FONT_PATH = os.path.join(FONT_DIR, 'default.ttf')
 
 def generate_project_og(title, tagline):
     width, height = 1200, 630
-    bg_color = (15, 23, 42)  # Dark navy
+    bg_color = (15, 23, 42) 
 
     # 1️⃣ Canvas
     img = Image.new("RGB", (width, height), bg_color)
     draw = ImageDraw.Draw(img)
 
-    # 2️⃣ Soft Gradient Overlay (Optimized)
+    # 2️⃣ Soft Gradient Overlay
     for i in range(height):
         shade = int(15 + (i / height) * 25)
         draw.line([(0, i), (width, i)], fill=(shade, shade, shade))
     
-    # 3️⃣ Random Glow Blobs (Cleaned up blending)
+    # 3️⃣ Random Glow Blobs
     for _ in range(3): 
         x = random.randint(-200, width)
         y = random.randint(-200, height)
@@ -40,18 +39,13 @@ def generate_project_og(title, tagline):
 
     draw = ImageDraw.Draw(img)
 
-    # 4️⃣ Fonts (Robust Loading Function)
+    # 4️⃣ Fonts
     def load_font(size):
         try:
-            # Attempt 1: Load bundled font path (most reliable on cloud)
             if os.path.exists(BUNDLED_FONT_PATH):
                  return ImageFont.truetype(BUNDLED_FONT_PATH, size)
-            
-            # Attempt 2: Fallback to system font (arial.ttf)
             return ImageFont.truetype(FONT_NAME, size)
-            
-        except IOError as e:
-            # Final Fallback: Load PIL's default, generic font
+        except IOError:
             return ImageFont.load_default(size=size)
             
     font_title = load_font(70)
@@ -62,8 +56,12 @@ def generate_project_og(title, tagline):
     wrapped_title = textwrap.fill(title.upper(), width=20)
     
     # --- Title Positioning and Neon Glow ---
-    # Using the deprecated multiline_textsize, which is functional but requires care
-    title_w, title_h = draw.multiline_textsize(wrapped_title, font=font_title, spacing=10)
+    
+    # CRITICAL FIX FOR PILLOW 12.0.0: Replaced multiline_textsize with multiline_textbbox
+    bbox = draw.multiline_textbbox((0, 0), wrapped_title, font=font_title, spacing=10)
+    title_w = bbox[2] - bbox[0]
+    title_h = bbox[3] - bbox[1]
+    
     title_x = (width - title_w) // 2
     title_y = height // 2 - 100 
 
@@ -77,10 +75,10 @@ def generate_project_og(title, tagline):
     glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(14)) 
     img = Image.blend(img, glow_layer, 0.60) 
 
-    # 6.3 Draw Title (clean text)
+    # 6.3 Draw Title
     draw.multiline_text((title_x, title_y), wrapped_title, font=font_title, fill=(255, 255, 255), spacing=10)
 
-    # 7️⃣ Tagline (centered)
+    # 7️⃣ Tagline
     tag_bbox = draw.textbbox((0, 0), tagline, font=font_tagline)
     tag_w = tag_bbox[2] - tag_bbox[0]
     tag_x = (width - tag_w) // 2

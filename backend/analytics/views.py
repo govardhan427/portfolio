@@ -57,9 +57,8 @@ class TrackPageView(APIView):
         
         # New day check: Increment visits
         if not created and visitor.last_visit.date() < now.date():
-            # visitor.visits += 1 
-            # update_fields.append("visits")
-            pass
+            visitor.visits += 1  # Uncommented
+            update_fields.append("visits")
             
         # Update last visit time and set online status
         visitor.last_visit = now
