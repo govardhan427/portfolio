@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'cloudinary', 
 
     # Masterpiece Custom Apps
-    'core', 
+    'core.apps.CoreConfig', 
     'analytics', 
     'vault', 
     'blog', 

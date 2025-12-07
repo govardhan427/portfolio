@@ -4,36 +4,84 @@ from rest_framework.response import Response
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Count
+from django.db.models.functions import TruncDate # Needed for PostgreSQL daily aggregation
 from .models import Visitor, PageView
 from .serializers import VisitorSerializer
 from .utils import get_client_ip
 from rest_framework.permissions import AllowAny, IsAdminUser
 
+# Define the active window (5 minutes) for a user to be considered "online"
+ACTIVE_WINDOW_MINUTES = 5 
+MIN_UPDATE_INTERVAL = 20 # Seconds to wait before updating visitor record again
+
 # ==============================================================================
-# 1. PUBLIC TRACKING ENDPOINT (React calls this on route change)
+# 1. PUBLIC TRACKING ENDPOINT (Handles Visitor Activity and PageView logging)
 # ==============================================================================
 class TrackPageView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        # 1. Identify the Visitor (by IP)
-        ip = get_client_ip(request)
-        visitor, _ = Visitor.objects.get_or_create(ip_address=ip)
-        
-        # 2. Update their "Last Seen"
-        visitor.last_visit = timezone.now()
-        
-        # 3. Update device info if missing
-        if request.data.get('user_agent'):
-            visitor.user_agent = request.data.get('user_agent')
-        visitor.save()
+        # 1. Setup Session and Time
+        if not request.session.session_key:
+            request.session.create()
 
-        # 4. Log the specific page they are looking at
-        path = request.data.get('path', '/')
+        session_key = request.session.session_key
+        ip = get_client_ip(request)
+        now = timezone.now()
+
+        # 2. Get or Create Visitor
+        visitor, created = Visitor.objects.get_or_create(
+            session_key=session_key,
+            defaults={
+                "remote_ip": ip,
+                "user_agent": request.data.get("user_agent", ""),
+                "is_online": True, 
+                "last_visit": now,
+                # Ensure 'visits' is initialized correctly if it exists in your model
+                # "visits": 1,
+            }
+        )
+
+        # 3. Rate Limiting Check (Skip expensive update if too soon)
+        if not created and visitor.last_visit > now - timedelta(seconds=MIN_UPDATE_INTERVAL):
+            # Log the page view even if the visitor record isn't updated,
+            # but return immediately to save DB write operation on the Visitor table.
+            path = request.data.get("path", "/")
+            PageView.objects.create(
+                visitor=visitor,
+                path=path,
+                referrer=request.data.get("referrer", "")
+            )
+            return Response({"status": "rate_limited"}, status=200)
+
+        # 4. Update Visitor Fields
+        update_fields = ["last_visit", "is_online"]
+        
+        # New day check: Increment visits
+        if not created and visitor.last_visit.date() < now.date():
+            # You need a 'visits' field in models.py for this logic to work
+            # visitor.visits += 1 
+            # update_fields.append("visits")
+            pass
+            
+        # Update last visit time and set online status
+        visitor.last_visit = now
+        visitor.is_online = True
+        
+        # Update user agent only if provided and changed
+        ua = request.data.get("user_agent")
+        if ua and ua != visitor.user_agent:
+            visitor.user_agent = ua
+            update_fields.append("user_agent")
+        
+        # Save changes to the Visitor record
+        visitor.save(update_fields=update_fields)
+
+        # 5. Log page view (MUST happen after visitor update)
         PageView.objects.create(
             visitor=visitor,
-            path=path,
-            referrer=request.data.get('referrer', '')
+            path=request.data.get("path", "/"),
+            referrer=request.data.get("referrer", "")
         )
 
         return Response({"status": "tracked"}, status=status.HTTP_201_CREATED)
@@ -42,54 +90,59 @@ class TrackPageView(APIView):
 # 2. ADMIN DASHBOARD API (Protected)
 # ==============================================================================
 class AnalyticsDashboardView(APIView):
-    # In production, change AllowAny to IsAdminUser
     permission_classes = [IsAdminUser] 
 
     def get(self, request):
-        # Time ranges
         now = timezone.now()
-        last_24h = now - timedelta(hours=24)
-        last_7d = now - timedelta(days=7)
+        
+        # 1. CRITICAL FIX: EXPIRE STALE SESSIONS (The 'too many numbers' fix)
+        timeout_time = now - timedelta(minutes=ACTIVE_WINDOW_MINUTES)
+        
+        # Set all records whose last activity was outside the window to offline
+        Visitor.objects.filter(last_visit__lt=timeout_time, is_online=True).update(is_online=False)
 
-        # 1. High-level Stats
+        # 2. High-level Stats
         total_visitors = Visitor.objects.count()
+        online_count = Visitor.objects.filter(is_online=True).count() 
+        
+        last_24h = now - timedelta(hours=24)
         active_today = Visitor.objects.filter(last_visit__gte=last_24h).count()
         total_pageviews = PageView.objects.count()
 
-        # 2. Visitors Graph (Last 7 Days)
-        # We group by date to show a trend line
+        # 3. Visitors Graph (Using TruncDate for PostgreSQL compatibility)
+        last_7d = now - timedelta(days=7)
         daily_stats = (
             PageView.objects
             .filter(timestamp__gte=last_7d)
-            .extra(select={'day': "date(timestamp)"}) # SQLite syntax (works in dev)
-            .values('day')
-            .annotate(count=Count('id'))
-            .order_by('day')
+            .annotate(day=TruncDate("timestamp")) # Use TruncDate for Postgres (Render)
+            .values("day")
+            .annotate(count=Count("id"))
+            .order_by("day")
         )
-        # Note: For Postgres (Production), we might need TruncDate instead of .extra()
 
-        # 3. Top Pages
+        # 4. Top Pages
         top_pages = (
             PageView.objects
-            .values('path')
-            .annotate(views=Count('id'))
-            .order_by('-views')[:5]
+            .values("path")
+            .annotate(views=Count("id"))
+            .order_by("-views")[:5]
         )
 
         return Response({
             'overview': {
                 'total_visitors': total_visitors,
+                'online_users': online_count,
                 'active_today': active_today,
                 'total_pageviews': total_pageviews,
             },
             'daily_stats': list(daily_stats),
-            'top_pages': list(top_pages)
+            'top_pages': list(top_pages),
         })
 
 class VisitorListView(viewsets.ReadOnlyModelViewSet):
     """
-    Detailed list of every person who visited.
+    Provides a list of all visitor records for the admin dashboard.
     """
     queryset = Visitor.objects.all().order_by('-last_visit')
     serializer_class = VisitorSerializer
-    permission_classes = [permissions.IsAdminUser] # Lock this down in prod!
+    permission_classes = [permissions.IsAdminUser]

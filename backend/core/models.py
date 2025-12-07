@@ -29,6 +29,8 @@ class Project(models.Model):
     slug = models.SlugField(unique=True, help_text="URL friendly name (e.g. 'ecommerce-api')")
     tagline = models.CharField(max_length=200, help_text="Short one-liner description")
     description = models.TextField(help_text="Full details (Markdown supported)")
+    og_image = models.ImageField(upload_to='project_og/', blank=True, null=True, 
+                                 help_text="Automatically generated Open Graph image.")
     
     # CRITICAL FIX 1: New field for the featured image URL
     featured_image_url = models.URLField(max_length=500, blank=True, null=True, help_text="Paste the absolute URL for the main featured image.")

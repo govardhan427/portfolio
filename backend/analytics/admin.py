@@ -9,7 +9,7 @@ class PageViewInline(admin.TabularInline):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-    list_display = ('ip_address', 'device_type', 'first_visit', 'last_visit_formatted')
+    list_display = ('remote_ip', 'device_type', 'first_visit', 'last_visit_formatted')
     readonly_fields = ('id', 'first_visit', 'last_visit') # Keep IP and Location editable for your manual test
     inlines = [PageViewInline]
 
