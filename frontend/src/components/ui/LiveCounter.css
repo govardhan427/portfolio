@@ -1,0 +1,31 @@
+.live-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 255, 0, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  margin-right: 1.5rem;
+}
+
+.live-dot {
+  width: 8px; height: 8px;
+  background: #39ff14;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #39ff14;
+  animation: pulse 2s infinite;
+}
+
+.live-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #39ff14;
+  letter-spacing: 1px;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

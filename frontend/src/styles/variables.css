@@ -1,0 +1,33 @@
+:root {
+  /* 🌑 Core Colors */
+  --bg-dark: #050505;
+  --bg-card: #0a0a0a;
+  --bg-hover: #141414;
+  
+  /* 🌈 Neon Accents */
+  --neon-green: #39ff14;
+  --neon-cyan: #00f3ff;
+  --neon-pink: #ff0099;
+  --neon-purple: #bc13fe;
+  
+  /* 🖊️ Text */
+  --text-main: #ffffff;
+  --text-muted: #a3a3a3;
+  --text-accent: var(--neon-cyan);
+
+  /* 📐 Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  /* 🧱 Borders & Glass */
+  --border-light: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* ⚡ Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

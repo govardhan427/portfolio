@@ -1,0 +1,110 @@
+.page-status {
+  padding-top: 100px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-height: 100vh;
+}
+
+.status-loading {
+    text-align: center;
+    margin-top: 100px;
+    font-family: 'Courier New', monospace;
+    color: var(--neon-cyan);
+}
+
+.status-banner {
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  border: 1px solid transparent;
+}
+
+.status-banner.good {
+  background: rgba(57, 255, 20, 0.1);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.status-banner.bad {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.status-banner h2 { margin: 0; font-size: 1.5rem; }
+.status-banner p { margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem; }
+
+/* Metrics */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.metric-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* Services */
+.services-list {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+}
+
+.services-list h3 { margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+.service-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.service-row:last-child { border-bottom: none; }
+
+.service-name {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-main);
+}
+
+.service-status {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.service-status.good { color: var(--neon-green); }
+
+@media (max-width: 600px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+}

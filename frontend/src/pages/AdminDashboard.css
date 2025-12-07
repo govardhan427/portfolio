@@ -1,0 +1,323 @@
+/* --- Global Dashboard Container --- */
+.dashboard-container {
+  min-height: 100vh;
+  background: #050505;
+  color: var(--text-main);
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-loading {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neon-green);
+  font-family: 'Courier New', monospace;
+  animation: pulse 1s infinite;
+}
+
+/* --- Header --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-dot {
+  width: 10px; height: 10px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-green);
+  animation: pulse 2s infinite;
+}
+
+.header-logo h2 {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin: 0;
+  color: white;
+}
+
+.logout-btn {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff4d4d;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+/* --- Stats Grid (Top Row) --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #0a0a0a;
+  border: 1px solid var(--border-light);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.stat-icon {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-radius: 50%;
+}
+
+.stat-info h3 {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  margin-top: 0;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+/* --- Main Split Layout (Map Left, Data Right) --- */
+.main-split-layout {
+    display: grid;
+    /* Map takes 60%, Data Stack takes 40% */
+    grid-template-columns: 3fr 2fr; 
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Left Column: Big Vertical Map */
+.map-panel-vertical {
+    background: #0a0a0a;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    
+    /* Ensure height fills the available grid area */
+    height: 100%;
+    min-height: 600px; /* Minimum height to prevent squashing */
+    
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 2rem;
+}
+
+.map-panel-vertical h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* Force the map container to take ALL remaining space */
+.map-panel-vertical > div {
+    flex-grow: 1; 
+    width: 100%;
+    min-height: 0; /* Important for flex containers to handle overflow */
+}
+
+/* Right Column: Stack of Panels */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- SCROLLABLE PANELS (The Fix) --- */
+/* --- SCROLLABLE PANELS (The Logic Update) --- */
+.panel {
+  background: #0a0a0a;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  /* REMOVED max-height from here to let it shrink */
+}
+
+.panel h3 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 1rem;
+  color: white;
+  flex-shrink: 0; /* Keeps header fixed */
+}
+
+/* Scrollable Inner Content Wrapper */
+.visitor-table-wrapper, 
+.bar-chart-container,
+.file-grid { /* Applies to File Vault too */
+    max-height: 300px; /* Limit height here */
+    overflow-y: auto;  /* Auto-scroll only if needed */
+    
+    /* Custom Scrollbar */
+    scrollbar-width: thin; 
+    scrollbar-color: var(--neon-cyan) var(--bg-hover);
+    padding-right: 5px; 
+}
+
+/* Ensure the file vault panel specifically handles the grid overflow */
+.vault-panel .file-grid {
+    display: grid;
+    /* Ensure grid columns don't break when scrollbar appears */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 1rem;
+}
+
+/* Webkit Scrollbar Styling (Chrome/Edge/Safari) */
+.visitor-table-wrapper::-webkit-scrollbar,
+.bar-chart-container::-webkit-scrollbar,
+.file-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.visitor-table-wrapper::-webkit-scrollbar-track,
+.bar-chart-container::-webkit-scrollbar-track,
+.file-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.visitor-table-wrapper::-webkit-scrollbar-thumb,
+.bar-chart-container::-webkit-scrollbar-thumb,
+.file-grid::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 3px;
+}
+
+.visitor-table-wrapper::-webkit-scrollbar-thumb:hover,
+.bar-chart-container::-webkit-scrollbar-thumb:hover,
+.file-grid::-webkit-scrollbar-thumb:hover {
+    background-color: var(--neon-cyan);
+}
+
+/* --- Bar Chart (Visual CSS) --- */
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.bar-label {
+  width: 120px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  flex-grow: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--neon-cyan);
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.bar-count {
+  font-size: 0.8rem;
+  width: 30px;
+  text-align: right;
+  color: white;
+}
+
+/* --- Visitor Table --- */
+.visitor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.visitor-table th {
+  text-align: left;
+  color: var(--text-muted);
+  padding-bottom: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky; /* Sticky Header */
+  top: 0;
+  background: #0a0a0a; /* Cover content behind header */
+  z-index: 1;
+}
+
+.visitor-table td {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+}
+
+.mono {
+  font-family: 'Courier New', monospace;
+  color: var(--neon-green);
+}
+
+/* --- Animations --- */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .main-split-layout {
+        /* Stack the columns on tablets/mobile */
+        grid-template-columns: 1fr; 
+    }
+
+    .map-panel-vertical {
+        min-height: 400px;
+        position: static; /* Remove sticky on mobile */
+    }
+    
+    .map-panel-vertical > div {
+        min-height: 350px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack stats vertically on mobile */
+    }
+}

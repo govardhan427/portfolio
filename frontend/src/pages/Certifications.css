@@ -1,0 +1,232 @@
+.page-certs {
+  padding-top: 100px;
+  min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 4rem;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+}
+
+.certs-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.loading-state {
+    text-align: center;
+    margin-top: 100px;
+    color: var(--neon-green);
+    font-family: 'Courier New', monospace;
+}
+
+/* --- Timeline Core --- */
+.timeline-container {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+/* The Vertical Line */
+.timeline-container::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+  border-radius: 2px;
+}
+
+/* Items */
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* The Central Dot */
+.timeline-dot {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  top: 20px;
+  right: -20px; /* Adjust for left items */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+  border: 4px solid var(--bg-dark); /* Creates a gap effect */
+}
+
+/* Adjust dot for right items */
+.timeline-item.right .timeline-dot {
+  left: -20px;
+}
+
+/* The Card Content */
+.timeline-content {
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  position: relative;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Align content based on side */
+.timeline-item.left .timeline-content { align-items: flex-end; }
+.timeline-item.right .timeline-content { align-items: flex-start; }
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  border-color: var(--neon-green);
+  box-shadow: 0 5px 20px rgba(57, 255, 20, 0.05);
+}
+
+/* Typography */
+.cert-date {
+  color: var(--neon-green);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cert-title {
+  font-size: 1.2rem;
+  color: white;
+  margin: 0;
+}
+
+.cert-issuer {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.mini-tag {
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0.5rem;
+}
+
+.cert-verify-btn {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  font-size: 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.cert-verify-btn:hover {
+  background: var(--neon-green);
+  color: black;
+}
+
+/* --- Mobile Responsiveness --- */
+@media screen and (max-width: 768px) {
+  /* Move line to the left */
+  .timeline-container::after {
+    left: 31px;
+  }
+  
+  /* Make items full width */
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+  
+  /* Reset alignment for left items */
+  .timeline-item.left {
+    text-align: left;
+  }
+  
+  .timeline-item.left .timeline-content { align-items: flex-start; }
+  
+  /* Reset positioning */
+  .timeline-item.right {
+    left: 0%;
+  }
+  
+  /* Move dots to the left line */
+  .timeline-dot {
+    left: 11px !important; /* Center on the 4px line at 31px */
+    right: auto;
+  }
+}
+
+/* ... existing styles ... */
+
+.cert-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.cert-verify-btn {
+  /* Removed top margin since the container handles it */
+  margin-top: 0; 
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  font-size: 0.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cert-verify-btn:hover {
+  background: var(--neon-green);
+  color: black;
+}
+
+/* Specific style for the Image button to differentiate it slightly */
+.cert-verify-btn.image-btn {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.cert-verify-btn.image-btn:hover {
+  background: var(--neon-cyan);
+  color: black;
+}
