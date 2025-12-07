@@ -205,7 +205,7 @@ SIMPLE_JWT = {
 # ==============================================================================
 # For local dev, we allow all origins. 
 # In production, we will restrict this to 'https://your-vercel-app.vercel.app'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
