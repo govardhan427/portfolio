@@ -1,0 +1,6 @@
+# Django Environment & Security
+backend/env
+
+
+# Local Database
+backend/db.sqlite3
