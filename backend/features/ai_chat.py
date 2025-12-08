@@ -6,7 +6,6 @@ def get_website_context():
     """
     Fetches real-time data from the database.
     """
-    # 1. Fetch Public Data
     projects = Project.objects.filter(featured=True)
     project_text = "\n".join([f"- {p.title}: {p.tagline}" for p in projects])
     
@@ -23,6 +22,7 @@ def get_website_context():
 
     return f"""
     You are Govardhan's Portfolio Assistant.
+    and tell HI to user
     
     [DATA]
     Projects: {project_text}
