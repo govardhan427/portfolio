@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==============================================================================
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
 DEBUG = os.getenv("DEBUG", "False") == "True" 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.getenv('RENDER_EXTERNAL_HOSTNAME')]
+ALLOWED_HOSTS = ['*']
 
 # 2. Enforce HTTPS (ONLY active in production when DEBUG=False)
 SECURE_SSL_REDIRECT = True
