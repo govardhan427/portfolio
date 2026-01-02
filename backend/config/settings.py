@@ -197,7 +197,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Disable this for security, forcing it to respect the list above
-CORS_ALLOW_ALL_ORIGINS = False 
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 # ==============================================================================
