@@ -142,15 +142,12 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
 # ==============================================================================
 # 8. CACHING CONFIGURATION
-# ==============================================================================
+# ==============================================================================# backend/config/settings.py
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache_data'),
-        'TIMEOUT': 300,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
 CACHE_MIDDLEWARE_KEY_PREFIX = 'portfolio_cache'
