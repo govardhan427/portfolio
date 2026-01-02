@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const api = axios.create({
-    // VITE_API_URL should be 'http://127.0.0.1:8000/api/v1' in your .env
     baseURL: import.meta.env.VITE_API_URL,
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
@@ -10,8 +9,20 @@ const api = axios.create({
 // Auto-attach JWT token if it exists
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('access_token');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    
+    // 🛑 SAFETY CHECK:
+    // Only attach the token if it is REAL.
+    // This prevents sending "Bearer null" or "Bearer undefined", which causes 401 errors.
+    if (token && token !== "null" && token !== "undefined") {
+        config.headers.Authorization = `Bearer ${token}`;
+    } else {
+        // Explicitly delete the header to ensure we are treated as a "Guest"
+        delete config.headers.Authorization;
+    }
+    
     return config;
+}, (error) => {
+    return Promise.reject(error);
 });
 
 export default api;
