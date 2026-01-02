@@ -138,6 +138,7 @@ USE_TZ = True
 # ==============================================================================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = 'https://res.cloudinary.com/dqw1t0dul/'
 # ==============================================================================

@@ -1,0 +1,536 @@
+[
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$Y7ZItPLErUcNPa1vkBehb7$q3YoaIyUPyja9WL5vD/818X/MkXv9zUYysx9EvOxEGw=",
+      "last_login": "2025-12-06T01:37:20.451Z",
+      "is_superuser": true,
+      "username": "govardhan",
+      "first_name": "",
+      "last_name": "",
+      "email": "ccgovardhan60@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-12-06T01:36:55.477Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 2,
+    "fields": {
+      "name": "HTML",
+      "category": "FRONT",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 3,
+    "fields": {
+      "name": "CSS",
+      "category": "FRONT",
+      "proficiency": 100,
+      "icon_class": "FontAwesome",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 4,
+    "fields": {
+      "name": "JavaScript",
+      "category": "LANG",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 5,
+    "fields": {
+      "name": "React",
+      "category": "FRONT",
+      "proficiency": 90,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 6,
+    "fields": {
+      "name": "Django",
+      "category": "BACK",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 7,
+    "fields": {
+      "name": "Django Rest Framework",
+      "category": "BACK",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 8,
+    "fields": {
+      "name": "python",
+      "category": "LANG",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 9,
+    "fields": {
+      "name": "MYSQL",
+      "category": "LANG",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 10,
+    "fields": {
+      "name": "Mongodb",
+      "category": "LANG",
+      "proficiency": 40,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 11,
+    "fields": {
+      "name": "Docker",
+      "category": "DEVOPS",
+      "proficiency": 100,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 12,
+    "fields": {
+      "name": "Kubernetes",
+      "category": "DEVOPS",
+      "proficiency": 80,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 13,
+    "fields": {
+      "name": "AWS",
+      "category": "DEVOPS",
+      "proficiency": 60,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 14,
+    "fields": {
+      "name": "Linux",
+      "category": "TOOL",
+      "proficiency": 80,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 15,
+    "fields": {
+      "name": "Jenkins",
+      "category": "DEVOPS",
+      "proficiency": 70,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 16,
+    "fields": {
+      "name": "GIT",
+      "category": "TOOL",
+      "proficiency": 80,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 17,
+    "fields": {
+      "name": "GITHUB",
+      "category": "TOOL",
+      "proficiency": 80,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 18,
+    "fields": {
+      "name": "MS OFFICE",
+      "category": "TOOL",
+      "proficiency": 90,
+      "icon_class": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "core.project",
+    "pk": 2,
+    "fields": {
+      "title": "MONKFROG",
+      "slug": "monkfrog",
+      "tagline": "A themed E-commerce",
+      "description": "MONKFROG is a production-ready, full-stack e-commerce application designed to sell themed merchandise. I architected this solution to simulate a real-world shopping environment, focusing on secure data handling, performance optimization, and a polished user experience. It bridges a high-performance React frontend with a scalable Django Rest Framework backend.\r\n\r\n1.Authentication:JWT (JSON Web Tokens)\r\n2.Services:SendGrid (Email Automation), WhiteNoise (Static Files)\r\n3.Deployment: Vercel (Frontend), Render (Backend)",
+      "og_image": "",
+      "featured_image_url": null,
+      "demo_link": "https://monkfrog-e-commerce.vercel.app/",
+      "github_link": "https://github.com/govardhan427/e-commerce",
+      "featured": true,
+      "created_at": "2025-12-06T14:30:47.460Z",
+      "skills": [
+        2,
+        3,
+        5,
+        7,
+        8,
+        16,
+        17
+      ]
+    }
+  },
+  {
+    "model": "core.project",
+    "pk": 3,
+    "fields": {
+      "title": "Smart Access Hub for Urban Mobility",
+      "slug": "smart-access-hub-for-urban-mobility",
+      "tagline": "unified platform for all bookings",
+      "description": "Smart Access Hub for Urban Mobility is basically the city's glow-up in app form \u2014 one smooth platform where citizens can book events, reserve public facilities, check parking in real time, and use one secure Universal QR Code for everything. Behind the scenes, admins get a powerful Command Center with live dashboards, instant stats, and a built-in AI assistant, CityBot, that answers questions using actual database insights. It cuts out the chaos of disconnected systems and makes the whole urban experience way more fluid, smart, and efficient.\r\n\r\n\ud83d\udca0Key Highlights\r\n\r\n1.AI Assistant (CityBot): Powered by Google Gemini 2.0, offering voice-based, context-aware guidance using live data.\r\n2.Live Operations Dashboard: Auto-updating every 5 seconds to track traffic, capacity, and usage trends.\r\n3.RBAC Security: Tight JWT-based access separation for citizens and administrators.\r\n4.Unified QR System: Encrypted passes used across events, facilities, and parking for smooth entry validation.\r\n5.Centralized City Services: Bookings, reservations, and real-time monitoring all in one place.",
+      "og_image": "",
+      "featured_image_url": null,
+      "demo_link": "https://smart-city-platform-six.vercel.app/",
+      "github_link": "https://github.com/govardhan427/smart-city-platform",
+      "featured": true,
+      "created_at": "2025-12-06T15:35:57.136Z",
+      "skills": [
+        5,
+        7,
+        8,
+        9,
+        16,
+        17
+      ]
+    }
+  },
+  {
+    "model": "core.project",
+    "pk": 4,
+    "fields": {
+      "title": "Automated CI/CD Pipeline on AWS Tech Stack",
+      "slug": "automated-cicd-pipeline-on-aws-tech-stack",
+      "tagline": "Make everything Automated",
+      "description": "The project delivers a fully automated DevOps pipeline where every push to GitHub instantly rolls into a fresh Docker image and ships straight to an AWS EC2 server \u2014 no manual touching, no late-night config panic. Jenkins sits at the heart of the setup, orchestrating builds, tests, and deployments through Webhook triggers. The result? A deployment flow that\u2019s fast, consistent, and eliminates nearly all operational overhead while keeping the Django app running like a champ.\r\n\r\n\ud83d\udca0Key Contributions\r\n\r\n1.Infrastructure as Code: Set up and maintained an EC2 instance dedicated to CI/CD operations.\r\n\r\n2.Containerization: Packaged the Django project into a Docker image for smooth, environment-independent releases.\r\n\r\n3.Pipeline Automation: Created a Jenkinsfile that handles build \u2192 test \u2192 deploy the moment GitHub fires a Webhook.\r\n\r\n4.System Administration: Configured Linux users, permissions, and firewall rules to ensure secure service communication.",
+      "og_image": "",
+      "featured_image_url": null,
+      "demo_link": null,
+      "github_link": "https://github.com/govardhan427/modern-ci-cd-pipeline",
+      "featured": false,
+      "created_at": "2025-12-06T15:42:22.769Z",
+      "skills": [
+        6,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 2,
+    "fields": {
+      "project": 2,
+      "image_url": "",
+      "caption": "Homepage",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 3,
+    "fields": {
+      "project": 2,
+      "image_url": "",
+      "caption": "Products",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 4,
+    "fields": {
+      "project": 2,
+      "image_url": "",
+      "caption": "Cart",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 5,
+    "fields": {
+      "project": 3,
+      "image_url": "",
+      "caption": "Homepage",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 6,
+    "fields": {
+      "project": 3,
+      "image_url": "",
+      "caption": "Analatics",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 7,
+    "fields": {
+      "project": 3,
+      "image_url": "",
+      "caption": "",
+      "is_feature": false
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 8,
+    "fields": {
+      "project": 3,
+      "image_url": "",
+      "caption": "",
+      "is_feature": false
+    }
+  },
+  {
+    "model": "core.projectimage",
+    "pk": 9,
+    "fields": {
+      "project": 4,
+      "image_url": "",
+      "caption": "PIPELINE",
+      "is_feature": true
+    }
+  },
+  {
+    "model": "core.certificate",
+    "pk": 2,
+    "fields": {
+      "name": "Ultimate AWS Certified Cloud Practitioner \u2013 CLF-C02",
+      "issuer": "|Udemy",
+      "date_issued": "2025-07-16",
+      "credential_url": "",
+      "image_url": null
+    }
+  },
+  {
+    "model": "core.certificate",
+    "pk": 3,
+    "fields": {
+      "name": "Cyber Security training",
+      "issuer": "Skill Vertex",
+      "date_issued": "2023-12-05",
+      "credential_url": "",
+      "image_url": null
+    }
+  },
+  {
+    "model": "core.certificate",
+    "pk": 4,
+    "fields": {
+      "name": "web development",
+      "issuer": "Prodigy infoTech",
+      "date_issued": "2024-09-30",
+      "credential_url": "",
+      "image_url": null
+    }
+  },
+  {
+    "model": "core.certificate",
+    "pk": 5,
+    "fields": {
+      "name": "Basics Of MongoDB",
+      "issuer": "MongoDB",
+      "date_issued": "2025-06-21",
+      "credential_url": "https://www.credly.com/go/4HkYL8qi",
+      "image_url": null
+    }
+  },
+  {
+    "model": "core.certificate",
+    "pk": 6,
+    "fields": {
+      "name": "INNOTHON 2025",
+      "issuer": "Hindustan Institute of Technology and science",
+      "date_issued": "2025-03-21",
+      "credential_url": "",
+      "image_url": null
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 3,
+    "fields": {
+      "title": "SCHOOL",
+      "subtitle": "1st class -- 10th class",
+      "date_range": "2010 - 2020",
+      "description": "Completed my schooling from 1st to 10th class at Sri Chaitanya School, building the foundation of my learning journey and discovering my early interest in technology.",
+      "category": "EDU",
+      "order": 0
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 4,
+    "fields": {
+      "title": "INTERMEDIATE",
+      "subtitle": "11th - 12th",
+      "date_range": "2020-2022",
+      "description": "Completed my Intermediate at Narayana Junior College, strengthening my academic foundation and developing more clarity about choosing a technology-focused path.",
+      "category": "EDU",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 5,
+    "fields": {
+      "title": "B.TECH",
+      "subtitle": "computer science and engineering",
+      "date_range": "AUG 2022",
+      "description": "Joined B.Tech in Computer Science and Engineering, beginning my journey into programming, software development, and the world of technology.",
+      "category": "EDU",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 6,
+    "fields": {
+      "title": "INTERSHIP-Skill Vertex",
+      "subtitle": "on cyber security",
+      "date_range": "1st july 2023 - 30th july 2023",
+      "description": "Completed a one-month Cyber Security internship at Skill Vertex, gaining hands-on experience in security fundamentals, threat analysis, and practical defensive techniques.",
+      "category": "WORK",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 7,
+    "fields": {
+      "title": "INTERSHIP-Prodigy",
+      "subtitle": "on web development",
+      "date_range": "1st sep 2024 - 30th sep 2024",
+      "description": "Completed a one-month Web Development internship at Prodigy, working on frontend fundamentals, responsive design, and building practical web components.",
+      "category": "WORK",
+      "order": 4
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 8,
+    "fields": {
+      "title": "B.TECH",
+      "subtitle": "computer science and engineering",
+      "date_range": "APR 2026",
+      "description": "Will complete my B.Tech in Computer Science and Engineering, marking the end of my academic journey and the beginning of my professional career in tech.",
+      "category": "EDU",
+      "order": 5
+    }
+  },
+  {
+    "model": "core.journey",
+    "pk": 9,
+    "fields": {
+      "title": "MY GOAL",
+      "subtitle": "Full-stack & Devops",
+      "date_range": "Future",
+      "description": "My long-term goal is to become a highly proficient Full-Stack Developer and DevOps Engineer, building scalable systems, automating deployments, and mastering end-to-end software development.",
+      "category": "GOAL",
+      "order": 6
+    }
+  },
+  {
+    "model": "core.achievement",
+    "pk": 2,
+    "fields": {
+      "title": "INNOTHON 2025",
+      "description": "Secured 5th place at Code Arena 2025, a programming contest hosted by Hindustan Institute of Technology and Science. Competed against 54 teams and scored 128 points through strong debugging, logical thinking, and team coordination.",
+      "date_earned": "2025-03-21",
+      "icon_name": "Trophy",
+      "order": 0
+    }
+  },
+  {
+    "model": "vault.privatefile",
+    "pk": 16,
+    "fields": {
+      "name": "Govardhan_Resume.docx",
+      "file": "media/vault/Govardhan_Resume_lju7q6.docx",
+      "category": "RESUME",
+      "uploaded_at": "2025-12-06T10:11:49.910Z",
+      "size": "43.33 KB"
+    }
+  },
+  {
+    "model": "blog.blogpost",
+    "pk": 2,
+    "fields": {
+      "title": "How I\u2019m Building My Full-Stack & DevOps Portfolio From Scratch",
+      "slug": "how-im-building-my-full-stack-devops-portfolio-fro",
+      "content": "## How I\u2019m Building My Full-Stack & DevOps Portfolio From Scratch \u2014 And What I\u2019m Learning Along the Way \r\n\r\nEvery developer has that one project that becomes more than just a project.  \r\nFor me, it\u2019s my portfolio.\r\n\r\nI didn\u2019t want a basic \u201cHi, I\u2019m X\u201d website with two buttons and a list of skills.  \r\nI wanted something that actually *represents* who I am:\r\n\r\n- A full-stack developer who builds things  \r\n- A DevOps enthusiast who deploys things  \r\n- A problem solver who loves systems, automation, and clean engineering\r\n\r\nSo I started building my portfolio from scratch \u2014 **as a real, end-to-end full-stack + DevOps product.**  \r\nAnd honestly\u2026 it\u2019s been one of the most exciting builds of my life.\r\n\r\n---\r\n\r\n## The Goal: A Portfolio That Doesn\u2019t Just Show My Skills \u2014 It *Runs* Them\r\n\r\nI didn\u2019t want a static website.  \r\nI wanted a **living system**.\r\n\r\nSomething that:\r\n\r\n- tracks who visits  \r\n- shows real-time analytics  \r\n- has an admin dashboard  \r\n- stores files like a mini cloud drive  \r\n- includes a blogging system  \r\n- uses modern animations and 3D elements  \r\n- looks clean on every screen  \r\n- and feels like a product, not a resume\r\n\r\n---\r\n\r\n##The Tech I Chose (And Why)\r\n\r\n### **Frontend \u2014 React + Tailwind + Framer Motion**\r\nBecause I wanted:\r\n\r\n- smooth animations  \r\n- clean components  \r\n- responsiveness  \r\n- full control over UI  \r\n\r\nReact gives me that superpower.\r\n\r\n---\r\n\r\n### **Backend \u2014 Django + DRF + PostgreSQL**\r\nI needed something:\r\n\r\n- stable  \r\n- secure  \r\n- scalable  \r\n- perfect for analytics + dashboard + blogging  \r\n\r\nDjango is a beast for this.\r\n\r\n---\r\n\r\n### **DevOps \u2014 Docker, Nginx, CI/CD**\r\nThis is the part I enjoy the most.\r\n\r\nI wanted my portfolio to actually show my DevOps side:\r\n\r\n- containerized services  \r\n- automatic deployment  \r\n- reverse proxy  \r\n- proper HTTPS  \r\n- logs + uptime monitoring  \r\n\r\nBasically\u2026 a mini production-grade deployment.\r\n\r\n---\r\n\r\n## The Coolest Part: The Visitor Analytics System\r\n\r\nMost portfolios don\u2019t even know if someone opens the page.\r\n\r\nMine?\r\n\r\n- Tracks every unique visitor  \r\n- Logs every page they visit  \r\n- Shows real-time active users  \r\n- Displays geo-location  \r\n- Has a full dashboard where *I* can view everything  \r\n\r\nIt\u2019s my own tiny version of Google Analytics \u2014 built by me.\r\n\r\n---\r\n\r\n## The Admin Dashboard I Always Wanted\r\n\r\nInside my hidden admin panel, I can:\r\n\r\n- manage projects  \r\n- manage certifications  \r\n- upload and download files  \r\n- write and publish blogs  \r\n- check analytics  \r\n- control content  \r\n- view system health  \r\n\r\nIt feels like logging into my own startup.\r\n\r\n---\r\n\r\n## The Feature That Makes Everyone Go \u201cWOW\u201d\r\n\r\n### **AI-powered personal assistant.**  \r\nA chatbot trained on **my portfolio**, **my projects**, and **my skills**.\r\n\r\nVisitors can ask:\r\n\r\n- \u201cWhat has he built?\u201d  \r\n- \u201cExplain his EMS project.\u201d  \r\n- \u201cWhat DevOps tools does he know?\u201d  \r\n- \u201cShow me his certifications.\u201d  \r\n\r\nAnd the bot answers \u2014 like an interactive resume.\r\n\r\nThis one feature alone took the portfolio from \u201ccool\u201d \u2192 **\u201cbro what is this masterpiece??\u201d**\r\n\r\n---\r\n\r\n## What I\u2019ve Learned Building This\r\n\r\n### \ud83d\udd38 Full-stack is fun  \r\nBut *full-stack + DevOps* is a different level of satisfaction.\r\n\r\n### \ud83d\udd38 Deployment is not the end \u2014 monitoring is  \r\nSeeing your own dashboard update with live visitors is magical.\r\n\r\n### \ud83d\udd38 UI matters  \r\nEven a simple animation can make the whole site feel premium.\r\n\r\n### \ud83d\udd38 Building something for yourself hits different  \r\nThis portfolio taught me more than many courses combined.\r\n\r\n---\r\n\r\n## What\u2019s Next?\r\n\r\nI\u2019m not done.  \r\nI\u2019m still adding:\r\n\r\n- better 3D elements  \r\n- more blogs  \r\n- performance optimizations  \r\n- new admin tools  \r\n- and maybe a \u201cguest mode\u201d for friends to test features  \r\n\r\nThis portfolio will grow with me.\r\n\r\nIt\u2019s not just a website.  \r\nIt\u2019s my **developer identity** \u2014 engineered from scratch.\r\n\r\n---\r\n\r\n## Final Thought\r\n\r\nIf you\u2019re a developer, build your portfolio like it\u2019s your *biggest project*.  \r\nNot something you make in one day\u2026  \r\nbut something that evolves with your journey.\r\n\r\nIt will teach you:\r\n\r\n- design  \r\n- backend  \r\n- deployments  \r\n- debugging  \r\n- UX  \r\n- and storytelling",
+      "cover_image_url": null,
+      "tags": "Full-Stack, DevOps, Portfolio, React, Django, Web Development, Developer Journey, Software Engineering",
+      "is_published": true,
+      "created_at": "2025-12-06T15:55:03.476Z",
+      "read_time": 5
+    }
+  }
+]

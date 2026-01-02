@@ -11,6 +11,7 @@ import io
 
 @receiver(post_save, sender=Project)
 def generate_og_image(sender, instance, created, update_fields=None, **kwargs):
+    return
     # --- CRITICAL FIX 1: Prevent Recursive Loop ---
     # If this signal was triggered by the instance.save(update_fields=['og_image']) call, exit immediately.
     # This prevents the signal from calling itself indefinitely.

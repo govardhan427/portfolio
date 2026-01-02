@@ -1,7 +1,6 @@
 [
 {
   "model": "auth.user",
-  "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$1200000$Y7ZItPLErUcNPa1vkBehb7$q3YoaIyUPyja9WL5vD/818X/MkXv9zUYysx9EvOxEGw=",
     "last_login": "2025-12-06T01:37:20.451Z",
@@ -15,6 +14,14 @@
     "date_joined": "2025-12-06T01:36:55.477Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ur24cms0t19uv3zv6cxc9xuol8rt1c0t",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBUmlduvcMZJgZpGogKe3KeHfbpAvd_vfef6uA65LD2mQOE6uLMur0u0Wkp5Qd8APLvWqqZZmnqHdFH7TpW2V5XQ_37yBjy1vdJSeSyI9kkEcCR0ggZ-wAPAmZuLHUmd4PduAejDUucbTgHQJbb9XnCw3VOEM:1vRhEe:le9ni9arSg-K7NUISYhtiFyR6skekw0b54gKiXkB27I",
+    "expire_date": "2025-12-20T01:37:20.469Z"
   }
 },
 {
@@ -212,6 +219,8 @@
     "slug": "monkfrog",
     "tagline": "A themed E-commerce",
     "description": "MONKFROG is a production-ready, full-stack e-commerce application designed to sell themed merchandise. I architected this solution to simulate a real-world shopping environment, focusing on secure data handling, performance optimization, and a polished user experience. It bridges a high-performance React frontend with a scalable Django Rest Framework backend.\r\n\r\n1.Authentication:JWT (JSON Web Tokens)\r\n2.Services:SendGrid (Email Automation), WhiteNoise (Static Files)\r\n3.Deployment: Vercel (Frontend), Render (Backend)",
+    "og_image": "",
+    "featured_image_url": null,
     "demo_link": "https://monkfrog-e-commerce.vercel.app/",
     "github_link": "https://github.com/govardhan427/e-commerce",
     "featured": true,
@@ -235,6 +244,8 @@
     "slug": "smart-access-hub-for-urban-mobility",
     "tagline": "unified platform for all bookings",
     "description": "Smart Access Hub for Urban Mobility is basically the city's glow-up in app form — one smooth platform where citizens can book events, reserve public facilities, check parking in real time, and use one secure Universal QR Code for everything. Behind the scenes, admins get a powerful Command Center with live dashboards, instant stats, and a built-in AI assistant, CityBot, that answers questions using actual database insights. It cuts out the chaos of disconnected systems and makes the whole urban experience way more fluid, smart, and efficient.\r\n\r\n💠Key Highlights\r\n\r\n1.AI Assistant (CityBot): Powered by Google Gemini 2.0, offering voice-based, context-aware guidance using live data.\r\n2.Live Operations Dashboard: Auto-updating every 5 seconds to track traffic, capacity, and usage trends.\r\n3.RBAC Security: Tight JWT-based access separation for citizens and administrators.\r\n4.Unified QR System: Encrypted passes used across events, facilities, and parking for smooth entry validation.\r\n5.Centralized City Services: Bookings, reservations, and real-time monitoring all in one place.",
+    "og_image": "",
+    "featured_image_url": null,
     "demo_link": "https://smart-city-platform-six.vercel.app/",
     "github_link": "https://github.com/govardhan427/smart-city-platform",
     "featured": true,
@@ -257,6 +268,8 @@
     "slug": "automated-cicd-pipeline-on-aws-tech-stack",
     "tagline": "Make everything Automated",
     "description": "The project delivers a fully automated DevOps pipeline where every push to GitHub instantly rolls into a fresh Docker image and ships straight to an AWS EC2 server — no manual touching, no late-night config panic. Jenkins sits at the heart of the setup, orchestrating builds, tests, and deployments through Webhook triggers. The result? A deployment flow that’s fast, consistent, and eliminates nearly all operational overhead while keeping the Django app running like a champ.\r\n\r\n💠Key Contributions\r\n\r\n1.Infrastructure as Code: Set up and maintained an EC2 instance dedicated to CI/CD operations.\r\n\r\n2.Containerization: Packaged the Django project into a Docker image for smooth, environment-independent releases.\r\n\r\n3.Pipeline Automation: Created a Jenkinsfile that handles build → test → deploy the moment GitHub fires a Webhook.\r\n\r\n4.System Administration: Configured Linux users, permissions, and firewall rules to ensure secure service communication.",
+    "og_image": "",
+    "featured_image_url": null,
     "demo_link": null,
     "github_link": "https://github.com/govardhan427/modern-ci-cd-pipeline",
     "featured": false,
@@ -278,7 +291,7 @@
   "pk": 2,
   "fields": {
     "project": 2,
-    "image": "media/projects/Screenshot_2025-10-13_223031_hgbmrk",
+    "image_url": "",
     "caption": "Homepage",
     "is_feature": true
   }
@@ -288,7 +301,7 @@
   "pk": 3,
   "fields": {
     "project": 2,
-    "image": "media/projects/Screenshot_2025-12-06_195928_jslv0p",
+    "image_url": "",
     "caption": "Products",
     "is_feature": true
   }
@@ -298,7 +311,7 @@
   "pk": 4,
   "fields": {
     "project": 2,
-    "image": "media/projects/Screenshot_2025-12-06_195959_auqtyg",
+    "image_url": "",
     "caption": "Cart",
     "is_feature": true
   }
@@ -308,7 +321,7 @@
   "pk": 5,
   "fields": {
     "project": 3,
-    "image": "media/projects/Screenshot_2025-12-06_210344_lxadvj",
+    "image_url": "",
     "caption": "Homepage",
     "is_feature": true
   }
@@ -318,7 +331,7 @@
   "pk": 6,
   "fields": {
     "project": 3,
-    "image": "media/projects/Screenshot_2025-12-06_210418_gcifl5",
+    "image_url": "",
     "caption": "Analatics",
     "is_feature": true
   }
@@ -328,7 +341,7 @@
   "pk": 7,
   "fields": {
     "project": 3,
-    "image": "media/projects/Screenshot_2025-12-06_210406_sp6s7c",
+    "image_url": "",
     "caption": "",
     "is_feature": false
   }
@@ -338,7 +351,7 @@
   "pk": 8,
   "fields": {
     "project": 3,
-    "image": "media/projects/Screenshot_2025-12-06_210442_xhjcrw",
+    "image_url": "",
     "caption": "",
     "is_feature": false
   }
@@ -348,7 +361,7 @@
   "pk": 9,
   "fields": {
     "project": 4,
-    "image": "media/projects/Screenshot_2025-10-23_140118_uajhqi",
+    "image_url": "",
     "caption": "PIPELINE",
     "is_feature": true
   }
@@ -361,7 +374,7 @@
     "issuer": "|Udemy",
     "date_issued": "2025-07-16",
     "credential_url": "",
-    "image": "media/certs/UC-a09e807f-a759-4737-a201-fea21f39a992_kxhvsk"
+    "image_url": null
   }
 },
 {
@@ -372,7 +385,7 @@
     "issuer": "Skill Vertex",
     "date_issued": "2023-12-05",
     "credential_url": "",
-    "image": "media/certs/cyber_u94bpw"
+    "image_url": null
   }
 },
 {
@@ -383,7 +396,7 @@
     "issuer": "Prodigy infoTech",
     "date_issued": "2024-09-30",
     "credential_url": "",
-    "image": "media/certs/web_u0xm7c"
+    "image_url": null
   }
 },
 {
@@ -394,7 +407,7 @@
     "issuer": "MongoDB",
     "date_issued": "2025-06-21",
     "credential_url": "https://www.credly.com/go/4HkYL8qi",
-    "image": "media/certs/Screenshot_2025_1206_183034_atwu7e"
+    "image_url": null
   }
 },
 {
@@ -405,7 +418,7 @@
     "issuer": "Hindustan Institute of Technology and science",
     "date_issued": "2025-03-21",
     "credential_url": "",
-    "image": "media/certs/Screenshot_2025_1206_185537_lllmnw"
+    "image_url": null
   }
 },
 {
@@ -507,7 +520,9 @@
   "model": "analytics.visitor",
   "pk": "4f10e1dc-7984-47e9-a271-f4b456590f1e",
   "fields": {
-    "ip_address": "127.0.0.1",
+    "session_key": null,
+    "is_online": false,
+    "remote_ip": "127.0.0.1",
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
     "device_type": "Desktop",
     "location": {
@@ -517,7 +532,8 @@
       "lng": 78.9629
     },
     "first_visit": "2025-12-06T01:34:59.677Z",
-    "last_visit": "2025-12-07T02:21:42.640Z"
+    "last_visit": "2025-12-07T02:21:42.640Z",
+    "visits": 1
   }
 },
 {
@@ -36358,11 +36374,1235 @@
     "title": "How I’m Building My Full-Stack & DevOps Portfolio From Scratch",
     "slug": "how-im-building-my-full-stack-devops-portfolio-fro",
     "content": "## How I’m Building My Full-Stack & DevOps Portfolio From Scratch — And What I’m Learning Along the Way \r\n\r\nEvery developer has that one project that becomes more than just a project.  \r\nFor me, it’s my portfolio.\r\n\r\nI didn’t want a basic “Hi, I’m X” website with two buttons and a list of skills.  \r\nI wanted something that actually *represents* who I am:\r\n\r\n- A full-stack developer who builds things  \r\n- A DevOps enthusiast who deploys things  \r\n- A problem solver who loves systems, automation, and clean engineering\r\n\r\nSo I started building my portfolio from scratch — **as a real, end-to-end full-stack + DevOps product.**  \r\nAnd honestly… it’s been one of the most exciting builds of my life.\r\n\r\n---\r\n\r\n## The Goal: A Portfolio That Doesn’t Just Show My Skills — It *Runs* Them\r\n\r\nI didn’t want a static website.  \r\nI wanted a **living system**.\r\n\r\nSomething that:\r\n\r\n- tracks who visits  \r\n- shows real-time analytics  \r\n- has an admin dashboard  \r\n- stores files like a mini cloud drive  \r\n- includes a blogging system  \r\n- uses modern animations and 3D elements  \r\n- looks clean on every screen  \r\n- and feels like a product, not a resume\r\n\r\n---\r\n\r\n##The Tech I Chose (And Why)\r\n\r\n### **Frontend — React + Tailwind + Framer Motion**\r\nBecause I wanted:\r\n\r\n- smooth animations  \r\n- clean components  \r\n- responsiveness  \r\n- full control over UI  \r\n\r\nReact gives me that superpower.\r\n\r\n---\r\n\r\n### **Backend — Django + DRF + PostgreSQL**\r\nI needed something:\r\n\r\n- stable  \r\n- secure  \r\n- scalable  \r\n- perfect for analytics + dashboard + blogging  \r\n\r\nDjango is a beast for this.\r\n\r\n---\r\n\r\n### **DevOps — Docker, Nginx, CI/CD**\r\nThis is the part I enjoy the most.\r\n\r\nI wanted my portfolio to actually show my DevOps side:\r\n\r\n- containerized services  \r\n- automatic deployment  \r\n- reverse proxy  \r\n- proper HTTPS  \r\n- logs + uptime monitoring  \r\n\r\nBasically… a mini production-grade deployment.\r\n\r\n---\r\n\r\n## The Coolest Part: The Visitor Analytics System\r\n\r\nMost portfolios don’t even know if someone opens the page.\r\n\r\nMine?\r\n\r\n- Tracks every unique visitor  \r\n- Logs every page they visit  \r\n- Shows real-time active users  \r\n- Displays geo-location  \r\n- Has a full dashboard where *I* can view everything  \r\n\r\nIt’s my own tiny version of Google Analytics — built by me.\r\n\r\n---\r\n\r\n## The Admin Dashboard I Always Wanted\r\n\r\nInside my hidden admin panel, I can:\r\n\r\n- manage projects  \r\n- manage certifications  \r\n- upload and download files  \r\n- write and publish blogs  \r\n- check analytics  \r\n- control content  \r\n- view system health  \r\n\r\nIt feels like logging into my own startup.\r\n\r\n---\r\n\r\n## The Feature That Makes Everyone Go “WOW”\r\n\r\n### **AI-powered personal assistant.**  \r\nA chatbot trained on **my portfolio**, **my projects**, and **my skills**.\r\n\r\nVisitors can ask:\r\n\r\n- “What has he built?”  \r\n- “Explain his EMS project.”  \r\n- “What DevOps tools does he know?”  \r\n- “Show me his certifications.”  \r\n\r\nAnd the bot answers — like an interactive resume.\r\n\r\nThis one feature alone took the portfolio from “cool” → **“bro what is this masterpiece??”**\r\n\r\n---\r\n\r\n## What I’ve Learned Building This\r\n\r\n### 🔸 Full-stack is fun  \r\nBut *full-stack + DevOps* is a different level of satisfaction.\r\n\r\n### 🔸 Deployment is not the end — monitoring is  \r\nSeeing your own dashboard update with live visitors is magical.\r\n\r\n### 🔸 UI matters  \r\nEven a simple animation can make the whole site feel premium.\r\n\r\n### 🔸 Building something for yourself hits different  \r\nThis portfolio taught me more than many courses combined.\r\n\r\n---\r\n\r\n## What’s Next?\r\n\r\nI’m not done.  \r\nI’m still adding:\r\n\r\n- better 3D elements  \r\n- more blogs  \r\n- performance optimizations  \r\n- new admin tools  \r\n- and maybe a “guest mode” for friends to test features  \r\n\r\nThis portfolio will grow with me.\r\n\r\nIt’s not just a website.  \r\nIt’s my **developer identity** — engineered from scratch.\r\n\r\n---\r\n\r\n## Final Thought\r\n\r\nIf you’re a developer, build your portfolio like it’s your *biggest project*.  \r\nNot something you make in one day…  \r\nbut something that evolves with your journey.\r\n\r\nIt will teach you:\r\n\r\n- design  \r\n- backend  \r\n- deployments  \r\n- debugging  \r\n- UX  \r\n- and storytelling",
-    "cover_image": "media/blog/StockCake-Laptop_coding_display_1765036359_jjwlur",
+    "cover_image_url": null,
     "tags": "Full-Stack, DevOps, Portfolio, React, Django, Web Development, Developer Journey, Software Engineering",
     "is_published": true,
     "created_at": "2025-12-06T15:55:03.476Z",
     "read_time": 5
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-12-06T02:50:04.998Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "1",
+    "object_repr": "React",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-12-06T02:53:14.007Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "1",
+    "object_repr": "smart city hub",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for smart city hub\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-12-06T02:54:10.874Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "1",
+    "object_repr": "smart city hub",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Featured\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-12-06T03:38:35.018Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "blog",
+      "blogpost"
+    ],
+    "object_id": "1",
+    "object_repr": "govarha",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-12-06T05:01:16.512Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "1",
+    "object_repr": "python",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-12-06T05:02:55.336Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "1",
+    "object_repr": "2004-2016 - 1st-10thclass",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-12-06T05:03:37.747Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "2",
+    "object_repr": "2017-2019 - inter",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-12-06T06:00:57.268Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "1",
+    "object_repr": "React",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-12-06T08:41:41.277Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "analytics",
+      "visitor"
+    ],
+    "object_id": "21e7f3ce-6bb6-4820-ad78-1a7214537130",
+    "object_repr": "1.1.1.1 (2025-12-06)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-12-06T08:47:33.549Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "analytics",
+      "visitor"
+    ],
+    "object_id": "21e7f3ce-6bb6-4820-ad78-1a7214537130",
+    "object_repr": "1.1.1.1 (2025-12-06)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-12-06T08:55:13.208Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "achievement"
+    ],
+    "object_id": "1",
+    "object_repr": "python",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-12-06T11:46:00.772Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "1",
+    "object_repr": "React",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-12-06T11:46:51.674Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "2",
+    "object_repr": "HTML",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-12-06T11:47:41.814Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "3",
+    "object_repr": "CSS",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-12-06T11:48:30.383Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "4",
+    "object_repr": "JavaScript",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-12-06T11:49:06.701Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "5",
+    "object_repr": "React",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-12-06T11:49:28.668Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "6",
+    "object_repr": "Django",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-12-06T11:50:00.305Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "7",
+    "object_repr": "Django Rest Framework",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-12-06T11:50:19.632Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "8",
+    "object_repr": "python",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-12-06T11:50:55.692Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "9",
+    "object_repr": "MYSQL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-12-06T11:51:42.968Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "10",
+    "object_repr": "Mongodb",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-12-06T11:52:10.129Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "11",
+    "object_repr": "Docker",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-12-06T11:52:42.037Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "12",
+    "object_repr": "Kubernetes",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-12-06T11:53:04.956Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "13",
+    "object_repr": "AWS",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-12-06T11:53:36.864Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "14",
+    "object_repr": "Linux",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2025-12-06T11:53:59.252Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "15",
+    "object_repr": "Jenkins",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2025-12-06T11:55:42.790Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "12",
+    "object_repr": "Kubernetes",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2025-12-06T11:56:36.925Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "16",
+    "object_repr": "GIT",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2025-12-06T11:56:58.089Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "17",
+    "object_repr": "GITHUB",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2025-12-06T11:57:20.022Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "14",
+    "object_repr": "Linux",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2025-12-06T12:02:41.977Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "14",
+    "object_repr": "Linux",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2025-12-06T12:07:09.236Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "1",
+    "object_repr": "2004-2016 - 1st-10thclass",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2025-12-06T12:07:09.236Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "2",
+    "object_repr": "2017-2019 - inter",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2025-12-06T12:15:46.651Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "3",
+    "object_repr": "2010 - 2020 - SCHOOL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2025-12-06T12:21:24.104Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "4",
+    "object_repr": "2020-2022 - INTERMEDIATE",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2025-12-06T12:22:46.108Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "3",
+    "object_repr": "2010 - 2020 - SCHOOL",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2025-12-06T12:22:56.013Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "4",
+    "object_repr": "2020-2022 - INTERMEDIATE",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2025-12-06T12:23:17.537Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "4",
+    "object_repr": "2020-2022 - INTERMEDIATE",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2025-12-06T12:26:04.570Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "5",
+    "object_repr": "AUG 2022 - B.TECH",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2025-12-06T12:31:21.375Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "6",
+    "object_repr": "1st july 2023 - 30th july 2023 - INTERSHIP-Skill Vertex",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2025-12-06T12:33:35.387Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "7",
+    "object_repr": "1st sep 2024 - 30th sep 2024 - INTERSHIP-Prodigy",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2025-12-06T12:36:13.355Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "8",
+    "object_repr": "APR 2026 - B.TECH",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2025-12-06T12:36:53.544Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "8",
+    "object_repr": "APR 2026 - B.TECH",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2025-12-06T12:36:53.545Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "7",
+    "object_repr": "1st sep 2024 - 30th sep 2024 - INTERSHIP-Prodigy",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2025-12-06T12:36:53.545Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "6",
+    "object_repr": "1st july 2023 - 30th july 2023 - INTERSHIP-Skill Vertex",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2025-12-06T12:39:03.661Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "9",
+    "object_repr": "Future - MY GOAL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2025-12-06T12:39:10.572Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "journey"
+    ],
+    "object_id": "9",
+    "object_repr": "Future - MY GOAL",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2025-12-06T12:40:51.161Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "1",
+    "object_repr": "python",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2025-12-06T12:42:20.862Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "18",
+    "object_repr": "MS OFFI CE",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2025-12-06T12:42:38.332Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "skill"
+    ],
+    "object_id": "18",
+    "object_repr": "MS OFFICE",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2025-12-06T12:52:21.426Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "2",
+    "object_repr": "Ultimate AWS Certified Cloud Practitioner – CLF-C02",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2025-12-06T12:56:46.044Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "3",
+    "object_repr": "Cyber Security training",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2025-12-06T12:58:06.412Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "4",
+    "object_repr": "web development",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2025-12-06T13:03:47.302Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "5",
+    "object_repr": "Basics Of MongoDB",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2025-12-06T13:04:01.943Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "achievement"
+    ],
+    "object_id": "1",
+    "object_repr": "python",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2025-12-06T13:20:03.637Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "achievement"
+    ],
+    "object_id": "2",
+    "object_repr": "INNOTHON 2025",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2025-12-06T13:26:14.586Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "certificate"
+    ],
+    "object_id": "6",
+    "object_repr": "INNOTHON 2025",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2025-12-06T13:51:03.448Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "1",
+    "object_repr": "smart city hub",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Skills\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2025-12-06T14:19:29.165Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "1",
+    "object_repr": "smart city hub",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2025-12-06T14:30:56.695Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "2",
+    "object_repr": "MONKFROG",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for MONKFROG\"}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for MONKFROG\"}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for MONKFROG\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2025-12-06T14:56:37.798Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "2",
+    "object_repr": "MONKFROG",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Featured\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2025-12-06T15:36:09.114Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "3",
+    "object_repr": "Smart Access Hub for Urban Mobility",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for Smart Access Hub for Urban Mobility\"}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for Smart Access Hub for Urban Mobility\"}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for Smart Access Hub for Urban Mobility\"}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for Smart Access Hub for Urban Mobility\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2025-12-06T15:42:24.203Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "4",
+    "object_repr": "Automated CI/CD Pipeline on AWS Tech Stack",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"project image\", \"object\": \"Image for Automated CI/CD Pipeline on AWS Tech Stack\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2025-12-06T15:44:08.345Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "core",
+      "project"
+    ],
+    "object_id": "3",
+    "object_repr": "Smart Access Hub for Urban Mobility",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2025-12-06T15:45:37.732Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "blog",
+      "blogpost"
+    ],
+    "object_id": "1",
+    "object_repr": "govarha",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2025-12-06T15:55:03.479Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "blog",
+      "blogpost"
+    ],
+    "object_id": "2",
+    "object_repr": "How I’m Building My Full-Stack & DevOps Portfolio From Scratch",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2025-12-06T15:58:04.768Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "blog",
+      "blogpost"
+    ],
+    "object_id": "2",
+    "object_repr": "How I’m Building My Full-Stack & DevOps Portfolio From Scratch",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2025-12-06T15:59:00.989Z",
+    "user": [
+      "govardhan"
+    ],
+    "content_type": [
+      "blog",
+      "blogpost"
+    ],
+    "object_id": "2",
+    "object_repr": "How I’m Building My Full-Stack & DevOps Portfolio From Scratch",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
   }
 }
 ]
