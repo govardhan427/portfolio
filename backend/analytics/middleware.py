@@ -24,11 +24,24 @@ class VisitorTrackingMiddleware:
 
     def __call__(self, request):
 
-        # Skip admin, API paths that handle status, or paths without a session
-        if request.path.startswith('/admin') or request.path.startswith('/api/v1/features/status/'):
+        # 1. AGGRESSIVELY SKIP PATHS THAT DON'T NEED TRACKING
+        ignored_prefixes = (
+            '/admin', 
+            '/api/',
+            '/static/',
+            '/media/'
+        )
+        
+        ignored_exact_paths = (
+            '/favicon.ico',
+            '/favicon.png',
+            '/robots.txt'
+        )
+
+        if request.path.startswith(ignored_prefixes) or request.path in ignored_exact_paths:
             return self.get_response(request)
 
-        # 1. Ensure session exists (CRITICAL: Required for session_key)
+        # 2. Ensure session exists (Now it ONLY runs on actual page/API hits)
         if not request.session.session_key:
             request.session.create()
 
@@ -36,22 +49,20 @@ class VisitorTrackingMiddleware:
         now = timezone.now()
         ip = _get_client_ip(request) # Use the proxy-aware IP retrieval
 
-        # 2. Find or Create Visitor
+        # 3. Find or Create Visitor
         visitor, created = Visitor.objects.get_or_create(
             # Find by the session key
             session_key=session_key,
             defaults={
-                # CRITICAL FIX: Use the proxy-aware IP
                 "remote_ip": ip, 
                 "user_agent": request.META.get("HTTP_USER_AGENT"),
-                # NOTE: Ensure 'visits' exists in models.py if setting default here
                 "visits": 1, 
                 "last_visit": now,
                 "is_online": True
             }
         )
         
-        # 3. Handle Updates for Existing Visitor
+        # 4. Handle Updates for Existing Visitor
         if not created:
             # Check for minimum update interval for performance
             if visitor.last_visit < now - timedelta(seconds=MIN_UPDATE_INTERVAL):
@@ -63,7 +74,7 @@ class VisitorTrackingMiddleware:
                     visitor.visits += 1
                     fields_to_update.append("visits")
                 
-                # CRITICAL INTEGRITY FIX: Update IP if it changed mid-session
+                # Update IP if it changed mid-session
                 if visitor.remote_ip != ip:
                     visitor.remote_ip = ip
                     fields_to_update.append("remote_ip")

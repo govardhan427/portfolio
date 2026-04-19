@@ -7,7 +7,9 @@ from django.db.models import Count
 from django.db.models.functions import TruncDate 
 from .models import Visitor, PageView
 from .serializers import VisitorSerializer
-from .utils import get_client_ip
+
+# CRITICAL FIX: Imported get_ip_location to actually fetch the geographical data
+from .utils import get_client_ip, get_ip_location
 from rest_framework.permissions import AllowAny, IsAdminUser
 
 # Define the active window (5 minutes) for a user to be considered "online"
@@ -28,20 +30,40 @@ class TrackPageView(APIView):
         session_key = request.session.session_key
         ip = get_client_ip(request)
         now = timezone.now()
+        user_agent_raw = request.data.get("user_agent", "")
 
-        # 2. Get or Create Visitor by Session Key
-        visitor, created = Visitor.objects.get_or_create(
-            session_key=session_key,
-            defaults={
-                "remote_ip": ip, # Use remote_ip matching models.py
-                "user_agent": request.data.get("user_agent", ""),
-                "is_online": True, 
-                "last_visit": now,
-                # "visits": 1, # Keep commented if 'visits' field is not in model
-            }
-        )
+        # 2. Check if visitor already exists
+        visitor = Visitor.objects.filter(session_key=session_key).first()
+        created = False
 
-        # 3. Rate Limiting Check (Skip expensive update if too soon)
+        # 3. CRITICAL FIX: Create new visitor with parsed Location and Device data
+        if not visitor:
+            # Parse Device Type from User Agent
+            ua_string = user_agent_raw.lower()
+            if "mobi" in ua_string or "android" in ua_string or "iphone" in ua_string:
+                device = "Mobile"
+            elif "tablet" in ua_string or "ipad" in ua_string:
+                device = "Tablet"
+            else:
+                device = "Desktop"
+
+            # Fetch Geographical Location
+            location_data = get_ip_location(ip)
+
+            # Create the record
+            visitor = Visitor.objects.create(
+                session_key=session_key,
+                remote_ip=ip,
+                user_agent=user_agent_raw,
+                device_type=device,          # Saves Mobile/Tablet/Desktop
+                location=location_data,      # Saves actual geo-data from utils
+                is_online=True,
+                last_visit=now,
+                visits=1                     # Initial visit count
+            )
+            created = True
+
+        # 4. Rate Limiting Check (Skip expensive update if too soon)
         if not created and visitor.last_visit > now - timedelta(seconds=MIN_UPDATE_INTERVAL):
             # Log the page view but skip saving the Visitor record to the database
             path = request.data.get("path", "/")
@@ -52,33 +74,34 @@ class TrackPageView(APIView):
             )
             return Response({"status": "rate_limited"}, status=200)
 
-        # 4. Update Visitor Fields
-        update_fields = ["last_visit", "is_online"]
-        
-        # New day check: Increment visits
-        if not created and visitor.last_visit.date() < now.date():
-            visitor.visits += 1  # Uncommented
-            update_fields.append("visits")
+        # 5. Handle Updates for Existing Visitor
+        if not created:
+            update_fields = ["last_visit", "is_online"]
             
-        # Update last visit time and set online status
-        visitor.last_visit = now
-        visitor.is_online = True
-        
-        # Update user agent if provided and changed
-        ua = request.data.get("user_agent")
-        if ua and ua != visitor.user_agent:
-            visitor.user_agent = ua
-            update_fields.append("user_agent")
-        
-        # CRITICAL INTEGRITY FIX: Update remote_ip if it changed during the session
-        if ip and visitor.remote_ip != ip:
-            visitor.remote_ip = ip
-            update_fields.append("remote_ip")
-        
-        # Save changes to the Visitor record
-        visitor.save(update_fields=update_fields)
+            # New day check: Increment visits
+            if visitor.last_visit.date() < now.date():
+                visitor.visits += 1  
+                update_fields.append("visits")
+                
+            # Update last visit time and set online status
+            visitor.last_visit = now
+            visitor.is_online = True
+            
+            # Update user agent if provided and changed
+            if user_agent_raw and user_agent_raw != visitor.user_agent:
+                visitor.user_agent = user_agent_raw
+                update_fields.append("user_agent")
+            
+            # CRITICAL INTEGRITY FIX: Update remote_ip if it changed during the session
+            if ip and visitor.remote_ip != ip:
+                visitor.remote_ip = ip
+                update_fields.append("remote_ip")
+                # Optional: If the IP drastically changes, you could re-trigger get_ip_location here
+            
+            # Save changes to the Visitor record
+            visitor.save(update_fields=update_fields)
 
-        # 5. Log page view 
+        # 6. Log page view 
         PageView.objects.create(
             visitor=visitor,
             path=request.data.get("path", "/"),
@@ -96,7 +119,7 @@ class AnalyticsDashboardView(APIView):
     def get(self, request):
         now = timezone.now()
         
-        # 1. CRITICAL FIX: EXPIRE STALE SESSIONS 
+        # 1. EXPIRE STALE SESSIONS 
         timeout_time = now - timedelta(minutes=ACTIVE_WINDOW_MINUTES)
         
         # Set all records whose last activity was outside the window to offline
